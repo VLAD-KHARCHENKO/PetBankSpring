@@ -30,9 +30,8 @@
 
 
     <!-- Nav Item - Tables -->
+    <security:authorize access="hasRole('ROLE_CUSTOMER')">
 
-    <c:choose>
-        <c:when test="${user.role=='CUSTOMER'}">
             <li class="nav-item">
                 <a class="nav-link" href="cards">
                     <i class="fas fa-fw fa-table"></i>
@@ -51,8 +50,8 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Payments</span></a>
             </li>
-        </c:when>
-        <c:when test="${user.role=='ADMIN'}">
+    </security:authorize>
+    <security:authorize access="hasRole('ROLE_ADMIN')">
             <li class="nav-item">
                 <a class="nav-link" href="users">
                     <i class="fas fa-users"></i>
@@ -63,11 +62,7 @@
                     <i class="fas fa-money-bill-wave"></i>
                     <span>Accounts</span></a>
             </li>
-        </c:when>
-        <c:otherwise>
-            <a href=""></a>
-        </c:otherwise>
-    </c:choose>
+    </security:authorize>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

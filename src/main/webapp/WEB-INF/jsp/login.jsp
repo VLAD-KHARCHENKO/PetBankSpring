@@ -1,5 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
+<html lang="en" >
 
 <head>
 
@@ -9,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,15 +48,17 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="login" method="post">
+                                    <form:form class="user" action="login" method="post">
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control form-control-user"
+                                            <form:input path="username" type="email" name="login" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Enter Email Address..."/>
+                                            <form:errors path="username"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <form:input path="password" type="password" name="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Password"/>
+                                            <form:errors path="password"/>
                                         </div>
 
                                         <c:if test="${not empty notification}">
@@ -60,11 +69,11 @@
 
                                         <hr>
 
-                                    </form>
+                                    </form:form>
                                     <hr>
 
                                     <div class="text-center">
-                                        <a class="small" href="register">Create an Account!</a>
+                                        <a class="small" href="registration">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

@@ -3,6 +3,9 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!-- Topbar -->
+
+
+<!-- Topbar -->
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -212,7 +215,7 @@
                 <c:if test="${not empty user}">
                     <a class="dropdown-item" href="profile?id=${user.id}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                        <fmt:message key="profile"/>
+                       Profile
                     </a>
                 </c:if>
 
@@ -223,7 +226,7 @@
                     <c:when test="${not empty user}">
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            <fmt:message key="logout"/>
+                            Logout
                         </a>
                     </c:when>
                     <c:otherwise>

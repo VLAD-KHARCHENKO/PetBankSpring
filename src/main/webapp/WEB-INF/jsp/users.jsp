@@ -16,14 +16,14 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <c:import url="templ/header-part.jsp"/>
+    <c:import url="header-part.jsp"/>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
         <div id="content">
 
-            <c:import url="templ/topbar-part.jsp"/>
+            <c:import url="topbar-part.jsp"/>
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
@@ -76,7 +76,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <c:import url="templ/footer-part.jsp"/>
+        <c:import url="footer-part.jsp"/>
         <!-- End of Footer -->
 
     </div>
@@ -89,8 +89,8 @@
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->
-<c:import url="templ/logout-part.jsp"/>
-<c:import url="templ/loader-part.jsp"/>
+<c:import url="logout-part.jsp"/>
+<c:import url="loader-part.jsp"/>
 
 </body>
 

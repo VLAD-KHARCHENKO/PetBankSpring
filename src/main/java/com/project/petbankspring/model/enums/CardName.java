@@ -1,5 +1,5 @@
-//package com.project.petbankspring.model.enams;
-//
-//public enum CardName {
-//    UNIVERSAL, CREDIT, INTERNET, ANOTHER
-//}
+package com.project.petbankspring.model.enums;
+
+public enum CardName {
+    UNIVERSAL, CREDIT, INTERNET, ANOTHER
+}

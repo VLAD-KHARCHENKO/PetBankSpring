@@ -6,7 +6,7 @@
 <html lang="en">
 
 <head>
-     <title>Payments</title>
+     <title>Statements</title>
     <c:import url="head-part.jsp"/>
 
    </head>

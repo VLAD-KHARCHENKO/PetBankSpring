@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html lang="en">
 
 <head>
@@ -9,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Registration</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,36 +41,41 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" action="register" method="post">
+                             <form:form class="user" action="registration" method="post" modelAttribute="registrationForm">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="firstName" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                        <form:input  path="firstName" type="text" name="firstName" class="form-control form-control-user" id="exampleFirstName"
+                                            placeholder="First Name"/>
+                                        <form:errors path="firstName"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                        <form:input  path="lastName" type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
+                                            placeholder="Last Name"/>
+                                        <form:errors path="lastName"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <form:input  path="login" type="email" name="login" class="form-control form-control-user" id="exampleInputEmail"
+                                        placeholder="Email Address"/>
+                                    <form:errors path="login"/>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" name="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <form:input path="password" type="password" name="password" class="form-control form-control-user"
+                                            id="exampleInputPassword" placeholder="Password"/>
+                                        <form:errors path="password"/>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" name="confirmPassword" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <form:input path="password_confirm" type="password" name="password" class="form-control form-control-user"
+                                            id="exampleRepeatPassword" placeholder="Repeat Password"/>
+                                        <form:errors path="password_confirm"/>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
 
                                 <hr>
 
-                            </form>
+                        </form:form>
                             <hr>
 
                             <div class="text-center">
