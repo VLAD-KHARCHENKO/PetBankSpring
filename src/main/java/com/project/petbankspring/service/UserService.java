@@ -4,6 +4,7 @@ package com.project.petbankspring.service;
 //import com.project.petbankspring.controller.dto.RegistrationForm;
 //import com.project.petbankspring.controller.dto.UserProfileForm;
 //import com.project.petbankspring.exception.UserExistException;
+import com.project.petbankspring.controller.dto.ProfileForm;
 import com.project.petbankspring.controller.dto.RegistrationForm;
 import com.project.petbankspring.exception.UserExistException;
 import com.project.petbankspring.model.User;
@@ -96,17 +97,19 @@ public class UserService {
      * @param profileForm
      * @return
      */
-//    public User updateUser(ProfileForm profileForm) {
-//        LOG.info("Edit profile");
-//        User user = getCurrentUser();
-//        user.setLogin(profileForm.getLogin());
-//        user.setFirstName(profileForm.getFirst_name());
-//        user.setLastName(profileForm.getLast_name());
-//        user.setPhone(profileForm.getPhone());
-//
-//        LOG.info("updated user: " + user);
-//        return userRepo.save(user);
-//    }
+    public User updateUser(ProfileForm profileForm) {
+        LOG.info("Edit profile");
+        User user = getCurrentUser();
+        user.setLogin(profileForm.getLogin());
+        user.setFirstName(profileForm.getFirstName());
+        user.setLastName(profileForm.getLastName());
+        user.setActive(profileForm.isActive());
+        user.setRole(profileForm.getRole());
+
+
+        LOG.info("updated user: " + user);
+        return userRepo.save(user);
+    }
 
     /**
      * Finds User in DB by ID

@@ -53,11 +53,6 @@ public class InfoPageController {
         return "statements";
     }
 
-    @GetMapping(value = "/profile")
-    public String profile() {
-        log.info("profile Controller");
-        return "profile";
-    }
 
     @GetMapping(value = "/users")
     public String users() {

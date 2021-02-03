@@ -50,10 +50,10 @@
                                 </thead>
 
                                 <tbody>
-                                <c:forEach items="${users}" var="user">
+                                <c:forEach items="${profileUser}" var="user">
                                     <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.firstName}</td>
+                                        <td>${user.Id}</td>
+                                        <td>${user.FirstName}</td>
                                         <td>${user.lastName}</td>
                                         <td>${user.email}</td>
                                         <td>${user.active}</td>

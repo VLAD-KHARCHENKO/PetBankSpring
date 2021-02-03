@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Page</title>
+    <title>Home</title>
     <c:import url="head-part.jsp"/>
 </head>
 
