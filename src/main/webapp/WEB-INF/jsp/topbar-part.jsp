@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="locale" value="${pageContext.response.locale}" />
 <!-- Topbar -->
 
 
@@ -56,10 +58,10 @@
         <li class="nav-item">
             <c:choose>
                 <c:when test="${locale=='en'}">
-                    <a href="language?locale=uk_UA" class="nav-link">UA</a>
+                    <a href="?locale=uk_UA" class="nav-link">UA</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="language?locale=en" class="nav-link">EN</a>
+                    <a href="?locale=en" class="nav-link">EN</a>
                 </c:otherwise>
             </c:choose>
         </li>
@@ -215,7 +217,7 @@
                 <c:if test="${not empty user}">
                     <a class="dropdown-item" href="profile?id=${user.id}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                       Profile
+                        <spring:message code="profile"/>
                     </a>
                 </c:if>
 
@@ -226,7 +228,7 @@
                     <c:when test="${not empty user}">
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
+                            <spring:message code="logout"/>
                         </a>
                     </c:when>
                     <c:otherwise>

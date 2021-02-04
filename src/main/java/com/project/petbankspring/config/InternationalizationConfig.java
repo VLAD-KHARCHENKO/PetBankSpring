@@ -40,5 +40,6 @@ public class InternationalizationConfig implements WebMvcConfigurer {
         interceptor.setParamName("locale");
         registry.addInterceptor(interceptor);
         log.info("local" + interceptor);
+
     }
 }

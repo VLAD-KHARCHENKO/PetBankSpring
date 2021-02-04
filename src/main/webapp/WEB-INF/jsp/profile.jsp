@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <html lang="en">
 
 <head>
@@ -39,105 +42,95 @@
                                 <div class="col-lg-7">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Change account!</h1>
+                                            <h1 class="h4 text-gray-900 mb-4">
+                                                <spring:message code="change.profile"/>
+                                            </h1>
                                         </div>
-                                        <form:form class="user" action="profile" method="post">
+                                        <form:form class="user" action="profile" method="post"
+                                                   modelAttribute="profileForm">
                                             <div class="form-group row">
                                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                                     <label for="exampleFirstName" class="form-label-outside">
-                                                        First Name
+                                                        <spring:message code="first.name"/>
                                                     </label>
                                                     <form:input path="firstName" type="text" name="firstName"
                                                                 value="${profileUser.firstName}"
                                                                 class="form-control form-control-user"
                                                                 id="exampleFirstName"
-                                                                placeholder="First Name">
-                                                        <form:errors path="firstName"/>
+                                                                placeholder="First Name"/>
+                                                    <form:errors path="firstName"/>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="exampleLastName" class="form-label-outside">
-                                                        Last Name
+                                                        <spring:message code="last.name"/>
                                                     </label>
                                                     <form:input path="lastName" type="text" name="lastName"
                                                                 value="${profileUser.lastName}"
                                                                 class="form-control form-control-user"
                                                                 id="exampleLastName"
-                                                                placeholder="Last Name">
-                                                        <form:errors path="lastName"/>
+                                                                placeholder="Last Name"/>
+                                                    <form:errors path="lastName"/>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail" class="form-label-outside">
-                                                    Email
+                                                    <spring:message code="email"/>
                                                 </label>
                                                 <form:input path="login" type="email" name="login"
                                                             value="${profileUser.login}"
                                                             class="form-control form-control-user"
                                                             id="exampleInputEmail"
-                                                            placeholder="Email Address">
-                                                    <form:errors path="login"/>
+                                                            placeholder="Email Address"/>
+                                                <form:errors path="login"/>
                                             </div>
 
-                                            <c:choose>
-                                                <c:when test="${profileUser.id != user.id}">
+                                            <security:authorize access="hasRole('ROLE_ADMIN')">
 
+                                                <div class="form-group">
                                                     <label class="form-label-outside">
-                                                        Condition
+                                                        <spring:message code="condition"/>
                                                     </label>
-                                                    <div class="switch-wrap d-flex justify-content-between">
-                                                        <div class="confirm-radio">
-
-                                                            <c:choose>
-                                                                <c:when test="${profileUser.active=='true'}">
-                                                                    <form:input path="active" type="radio"
-                                                                                id="confirm-radio"
-                                                                                name="active" value="true" checked>
-                                                                        <form:errors path="active"/>
-                                                                        <label for="confirm-radio">Active</label>
-                                                                        <form:input path="active" type="radio"
-                                                                                    id="confirm-radio2"
-                                                                                    name="active" value="false">
-                                                                            <form:errors path="active"/>
-                                                                            <label for="confirm-radio">Blocked</label>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <form:input path="active" type="radio" id="confirm-radio"
-                                                                           name="active" value="true">
-
-                                                                    <label for="confirm-radio">Active</label>
-                                                                        <form:errors path="active"/>
-                                                                        <form:input path="active" type="radio" id="confirm-radio2"
-                                                                           name="active" value="false" checked>
-                                                                    <label for="confirm-radio">Blocked</label>
-                                                                            <form:errors path="active"/>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </div>
-                                                    </div>
 
 
-                                                    <div class="form-group">
-                                                        <label for="role" class="form-label-outside">
-                                                            Role
-                                                        </label>
-                                                        <select id="role" name="role" class="form-control">
-                                                            <security:authorize access="hasRole('ROLE_ADMIN')">
-                                                                <option value="ADMIN">ADMIN</option>
-                                                                <option value="CUSTOMER">CUSTOMER</option>
-                                                            </security:authorize>
-                                                            <security:authorize access="hasRole('ROLE_CUSTOMER')">
-                                                                <option value="CUSTOMER">CUSTOMER</option>
-                                                                <option value="ADMIN">ADMIN</option>
-                                                            </security:authorize>
-                                                        </select>
+                                                    <form:select path="condition" class="form-control">
+                                                        <c:choose>
+                                                            <c:when test="${profileUser.role=='ADMIN'}">
+                                                                <form:option value="true">ACTIVE</form:option>
+                                                                <form:option value="false">BLOCKED</form:option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <form:option value="false">BLOCKED</form:option>
+                                                                <form:option value="true">ACTIVE</form:option>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </form:select>
+                                                    <form:errors path="condition"/>
+                                                </div>
 
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <hr>
-                                                </c:otherwise>
-                                            </c:choose>
+                                                <div class="form-group">
+                                                    <label for="role" class="form-label-outside">
+                                                        <spring:message code="role"/>
+                                                    </label>
+                                                    <form:select path="role" class="form-control">
+                                                        <c:choose>
+                                                            <c:when test="${profileUser.role=='ADMIN'}">
+                                                                <form:option value="ADMIN">ADMIN</form:option>
+                                                                <form:option value="CUSTOMER">CUSTOMER</form:option>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <form:option value="CUSTOMER">CUSTOMER</form:option>
+                                                                <form:option value="ADMIN">ADMIN</form:option>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </form:select>
+                                                    <form:errors path="role"/>
+                                                </div>
 
+                                            </security:authorize>
+                                            <security:authorize access="hasRole('ROLE_CUSTOMER')">
+                                                <input type="hidden" name="userId" value="${profileUser.condition}"/>
+                                                <input type="hidden" name="userId" value="${profileUser.role}"/>
+                                            </security:authorize>
                                             <c:choose>
                                                 <c:when test="${profileUser.id == user.id}">
 
@@ -145,37 +138,37 @@
                                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                                             <label for="exampleInputPassword"
                                                                    class="form-label-outside">
-                                                                Password
+                                                                <spring:message code="password"/>
                                                             </label>
                                                             <form:input path="password" type="password" name="password"
                                                                         value="${profileUser.password}"
                                                                         class="form-control form-control-user"
                                                                         id="exampleInputPassword"
-                                                                        placeholder="Password">
-                                                                <form:errors path="password"/>
+                                                                        placeholder="Password"/>
+                                                            <form:errors path="password"/>
                                                         </div>
 
                                                         <div class="col-sm-6">
                                                             <label for="exampleRepeatPassword"
                                                                    class="form-label-outside">
-                                                                Password
+                                                                <spring:message code="confirm.password"/>
                                                             </label>
                                                             <form:input path="password_confirm" type="password"
                                                                         name="confirmPassword"
                                                                         value="${profileUser.password}"
                                                                         class="form-control form-control-user"
                                                                         id="exampleRepeatPassword"
-                                                                        placeholder="Repeat Password">
-                                                                <form:errors path="password_confirm"/>
+                                                                        placeholder="Repeat Password"/>
+                                                            <form:errors path="password_confirm"/>
                                                         </div>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <hr>
+                                                    <input type="hidden" name="userId" value="${profileUser.password}"/>
                                                 </c:otherwise>
                                             </c:choose>
 
-                                            <input type="hidden" name="userId" value="${profileUser.id}"/>
+                                            <input type="hidden" name="password" value="${profileUser.id}"/>
 
                                             <button type="submit" class="btn btn-primary btn-user btn-block">Change
                                             </button>

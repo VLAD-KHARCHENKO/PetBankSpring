@@ -22,10 +22,9 @@ public class User extends BaseEntity {
     @Column(name = "password")
     private String password;
     @Column(name = "condition")
-    private boolean isActive;
+    private boolean condition;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-
 
 
 }

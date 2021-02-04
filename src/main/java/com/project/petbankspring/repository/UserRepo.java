@@ -15,6 +15,6 @@ public interface UserRepo extends CrudRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-//    List<User> findAll();
+//   List<User> findAll();
 
 }

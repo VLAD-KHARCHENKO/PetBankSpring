@@ -45,21 +45,21 @@
                                     <th>Email</th>
                                     <th>isActive</th>
                                     <th>Role</th>
-                                    <th>Edit</th>
+                                    <th>Change</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <c:forEach items="${profileUser}" var="user">
+                                <c:forEach items="${users}" var="user">
                                     <tr>
-                                        <td>${user.Id}</td>
-                                        <td>${user.FirstName}</td>
+                                        <td>${user.id}</td>
+                                        <td>${user.firstName}</td>
                                         <td>${user.lastName}</td>
-                                        <td>${user.email}</td>
+                                        <td>${user.login}</td>
                                         <td>${user.active}</td>
                                         <td>${user.role}</td>
                                         <td>
-                                            <a href="profile?id=${user.id}" class="search_link">Edit</a>
+                                            <a href="profile?id=${user.id}" class="search_link">-></a>
                                         </td>
                                     </tr>
                                 </c:forEach>

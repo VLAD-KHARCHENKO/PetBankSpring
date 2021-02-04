@@ -14,7 +14,7 @@ public class ProfileForm {
     @NotNull
     private String lastName;
     @NotNull
-    private boolean isActive;
+    private boolean condition;
     @NotNull
     private String login;
     @NotNull

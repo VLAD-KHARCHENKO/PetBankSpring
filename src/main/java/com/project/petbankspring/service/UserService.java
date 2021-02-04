@@ -103,7 +103,7 @@ public class UserService {
         user.setLogin(profileForm.getLogin());
         user.setFirstName(profileForm.getFirstName());
         user.setLastName(profileForm.getLastName());
-        user.setActive(profileForm.isActive());
+        user.setCondition(profileForm.isCondition());
         user.setRole(profileForm.getRole());
 
 

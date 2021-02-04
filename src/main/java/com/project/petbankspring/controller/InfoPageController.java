@@ -1,15 +1,23 @@
 package com.project.petbankspring.controller;
 
 
+import com.project.petbankspring.repository.UserRepo;
+import com.project.petbankspring.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
 public class InfoPageController {
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private UserRepo userRepo;
 
     @GetMapping(value = "/index")
     public String index() {
@@ -55,8 +63,10 @@ public class InfoPageController {
 
 
     @GetMapping(value = "/users")
-    public String users() {
+    public String users(Model model) {
         log.info("users Controller");
+        model.addAttribute("users",userRepo.findAll());
+
         return "users";
     }
 
