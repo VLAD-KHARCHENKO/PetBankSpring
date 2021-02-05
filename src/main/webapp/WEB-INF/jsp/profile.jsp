@@ -95,12 +95,12 @@
                                                     <form:select path="condition" class="form-control">
                                                         <c:choose>
                                                             <c:when test="${profileUser.role=='ADMIN'}">
-                                                                <form:option value="true">ACTIVE</form:option>
-                                                                <form:option value="false">BLOCKED</form:option>
+                                                                <form:option value="false">ACTIVE</form:option>
+                                                                <form:option value="true">BLOCKED</form:option>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <form:option value="false">BLOCKED</form:option>
-                                                                <form:option value="true">ACTIVE</form:option>
+                                                                <form:option value="true">BLOCKED</form:option>
+                                                                <form:option value="false">ACTIVE</form:option>
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </form:select>

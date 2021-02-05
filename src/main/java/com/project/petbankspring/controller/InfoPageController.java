@@ -3,6 +3,7 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.repository.UserRepo;
 import com.project.petbankspring.service.UserService;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ public class InfoPageController {
 
     @GetMapping(value = "/index")
     public String index() {
-        log.info("index Controller");
+        log.("index Controller");
         return "index";
     }
 

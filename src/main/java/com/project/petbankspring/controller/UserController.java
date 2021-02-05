@@ -105,7 +105,9 @@ public class UserController {
 //    }
 
     @GetMapping(value = "profile")
-    public String profile(@RequestParam(value = "id") Long id, Model model) {
+    public String profile(@RequestParam(value
+
+            = "id") Long id, Model model) {
         log.info("Get profile Page");
         model.addAttribute("profileUser", userService.getUserById(id));
 //        model.addAttribute("currentUser", userService.getCurrentUser());
