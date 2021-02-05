@@ -10,6 +10,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "card", uniqueConstraints = @UniqueConstraint(columnNames = "number"))
 public class Card extends BaseEntity {
 

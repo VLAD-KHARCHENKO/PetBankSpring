@@ -11,6 +11,8 @@ package com.project.petbankspring.model;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "payment")
 public class Payment extends BaseEntity {
     @NonNull

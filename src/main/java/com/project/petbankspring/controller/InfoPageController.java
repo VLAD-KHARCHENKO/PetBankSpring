@@ -2,7 +2,9 @@ package com.project.petbankspring.controller;
 
 
 
+import com.project.petbankspring.repository.CardRepo;
 import com.project.petbankspring.repository.UserRepo;
+import com.project.petbankspring.service.CardService;
 import com.project.petbankspring.service.UserService;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +23,11 @@ public class InfoPageController {
     @Autowired
     private UserRepo userRepo;
 
-//    @Autowired
-//    private CardService cardService;
+    @Autowired
+    private CardService cardService;
 
-//    @Autowired
-//    private CardRepo cardRepo;
+    @Autowired
+    private CardRepo cardRepo;
 
 
     @GetMapping(value = "/index")
@@ -47,9 +49,9 @@ public class InfoPageController {
     }
 
     @GetMapping(value = "/cards")
-    public String cards() {
+    public String cards(Model model) {
         log.info("cards Controller");
-//        model.addAttribute("cards",userRepo.findAll());
+        model.addAttribute("cards",cardService.findUserCards());
         return "cards";
     }
 

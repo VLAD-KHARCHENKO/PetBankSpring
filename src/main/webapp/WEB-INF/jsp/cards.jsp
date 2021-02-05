@@ -43,6 +43,8 @@
                             <th>Card name</th>
                             <th>Number</th>
                             <th>isActive</th>
+                            <th>Account</th>
+                            <th>User Name</th>
                         </tr>
                         </thead>
 
@@ -50,9 +52,12 @@
                         <c:forEach items="${cards}" var="card">
                             <tr>
                                 <td>${card.id}</td>
-                                <td>${card.cardName}</td>
                                 <td>${card.number}</td>
-                                <td>${user.active}</td>
+                                <td>${card.cardName}</td>
+                                <td>${card.condition}</td>
+                                <td>${card.account.balance}</td>
+                                <td>${card.account.user.firstName} ${card.account.user.lastName}</td>
+
                             </tr>
                         </c:forEach>
 
