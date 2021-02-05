@@ -21,6 +21,8 @@ public class BaseEntity implements EntityHasId {
         this.id = id;
     }
 
+
+
     @Override
     public Long getId() {
         return id;
