@@ -105,16 +105,13 @@ public class UserController {
 //    }
 
     @GetMapping(value = "profile")
-    public String profile(@RequestParam(value
-
-            = "id") Long id, Model model) {
+    public String profile(@RequestParam(value = "id") Long id, Model model) {
         log.info("Get profile Page");
         model.addAttribute("profileUser", userService.getUserById(id));
 //        model.addAttribute("currentUser", userService.getCurrentUser());
         log.info("addAttribute currentUser" + userService.getCurrentUser());
-        model.addAttribute("profileForm", new ProfileForm());
-        log.info("addAttribute profileForm" + new ProfileForm());
-
+        model.addAttribute("profileForm", userService.getProfileForm(id));
+        log.info("addAttribute profileForm" + userService.getProfileForm(id));
         return "profile";
     }
 

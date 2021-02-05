@@ -1,5 +1,5 @@
-//package com.project.petbankspring.model.enams;
-//
-//public enum Status {
-//    SAVE, PAID
-//}
+package com.project.petbankspring.model.enums;
+
+public enum Status {
+    SAVE, PAID
+}

@@ -90,21 +90,15 @@
                                                     <label class="form-label-outside">
                                                         <spring:message code="condition"/>
                                                     </label>
-
-
-                                                    <form:select path="condition" class="form-control">
-                                                        <c:choose>
-                                                            <c:when test="${profileUser.role=='ADMIN'}">
-                                                                <form:option value="false">ACTIVE</form:option>
-                                                                <form:option value="true">BLOCKED</form:option>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <form:option value="true">BLOCKED</form:option>
-                                                                <form:option value="false">ACTIVE</form:option>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </form:select>
-                                                    <form:errors path="condition"/>
+                                                    <div class="confirm-radio">
+                                                        <form:radiobutton path="condition"
+                                                                          value="true"/>
+                                                        <form:label path="condition">Active</form:label>
+                                                        <form:radiobutton path="condition"
+                                                                          value="false"/>
+                                                        <form:errors path="condition"/>
+                                                        <form:label path="condition">Blocked</form:label>
+                                                    </div>
                                                 </div>
 
                                                 <div class="form-group">

@@ -59,7 +59,7 @@
                                         <td>${user.firstName}</td>
                                         <td>${user.lastName}</td>
                                         <td>${user.login}</td>
-                                        <td>${user.active}</td>
+                                        <td>${user.condition}</td>
                                         <td>${user.role}</td>
                                         <td>
                                             <a href="profile?id=${user.id}" class="search_link">-></a>

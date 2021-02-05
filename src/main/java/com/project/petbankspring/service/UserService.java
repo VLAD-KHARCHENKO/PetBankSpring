@@ -9,6 +9,7 @@ import com.project.petbankspring.exception.UserExistException;
 import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.Role;
 import com.project.petbankspring.repository.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+@Slf4j
 @Service
 public class UserService {
-    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private UserRepo userRepo;
     @Autowired
@@ -53,7 +54,7 @@ public class UserService {
      * @return
      */
     public User registerUser(RegistrationForm form, Role role) {
-        LOG.info("Register user");
+        log.info("Register user");
         if (userRepo.existsByLogin(form.getLogin())) {
             throw new UserExistException(String.format("User with login %s already exists", form.getLogin()));
         }
@@ -61,7 +62,7 @@ public class UserService {
         String password = passwordEncoder.encode(form.getPassword());
 
         User user = new User(form.getFirstName(), form.getLastName(), form.getLogin(), password, true, role);
-        LOG.info("Save new user: " + user);
+        log.info("Save new user: " + user);
         return userRepo.save(user);
     }
 
@@ -90,6 +91,20 @@ public class UserService {
         return userRepo.findByLogin(username);
     }
 
+
+    public ProfileForm getProfileForm(Long id) {
+        User currentUser = getUserById(id);
+        return ProfileForm.builder()
+                .firstName(currentUser.getFirstName())
+                .lastName(currentUser.getLastName())
+                .login(currentUser.getLogin())
+                .condition(currentUser.isCondition())
+                .role(currentUser.getRole())
+                .password(currentUser.getPassword())
+                .password_confirm(currentUser.getPassword())
+                .build();
+    }
+
     /**
      * Takes data from ProfileForm to User and updates it in DB
      *
@@ -97,7 +112,7 @@ public class UserService {
      * @return
      */
     public User updateUser(ProfileForm profileForm) {
-        LOG.info("Edit profile");
+        log.info("Edit profile");
         User user = getCurrentUser();
         user.setLogin(profileForm.getLogin());
         user.setFirstName(profileForm.getFirstName());
@@ -106,7 +121,7 @@ public class UserService {
         user.setRole(profileForm.getRole());
 
 
-        LOG.info("updated user: " + user);
+        log.info("updated user: " + user);
         return userRepo.save(user);
     }
 
@@ -122,9 +137,9 @@ public class UserService {
         if (user.isPresent()) {
             userProfile = user.get();
         } else {
-            LOG.info("Person not found!");
+            log.info("Person not found!");
         }
-        LOG.info("user for Edit: " + userProfile);
+        log.info("user for Edit: " + userProfile);
         return userProfile;
     }
 
