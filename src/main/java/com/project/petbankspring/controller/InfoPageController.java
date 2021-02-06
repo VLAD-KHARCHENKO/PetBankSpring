@@ -9,10 +9,13 @@ import com.project.petbankspring.service.UserService;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.awt.print.Pageable;
 
 @Slf4j
 @Controller
@@ -48,12 +51,12 @@ public class InfoPageController {
         return "user";
     }
 
-    @GetMapping(value = "/cards")
-    public String cards(Model model) {
-        log.info("cards Controller");
-        model.addAttribute("cards",cardService.findUserCards());
-        return "cards";
-    }
+//    @GetMapping(value = "/cards")
+//    public String cards(Model model) {
+//        log.info("cards Controller");
+//        model.addAttribute("cards",cardService.findUserCards());
+//        return "cards";
+//    }
 
     @GetMapping(value = "/")
     public String home() {

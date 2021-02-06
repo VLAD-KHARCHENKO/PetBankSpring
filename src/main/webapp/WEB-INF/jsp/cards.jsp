@@ -52,27 +52,82 @@
                         <c:forEach items="${cards}" var="card">
                             <tr>
                                 <td>${card.id}</td>
-                                <td>${card.number}</td>
                                 <td>${card.cardName}</td>
-                                <td>${card.condition}</td>
+                                <td>${card.number}</td>
+                                <td><a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
+                                       data-target="#collapseUtilities"
+                                       aria-expanded="true" aria-controls="collapseUtilities">
+
+                                    <span class="text">${card.condition}</span>
+                                </a>
+
+                                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                                         data-parent="#accordionSidebar">
+                                        <div class="bg-white py-2 collapse-inner rounded">
+                                                                                       <c:forEach items="${cardCondition}" var="value">
+                                                <a class="dropdown-item" href="createCard?cardCondition=${value}">${value}</a>
+                                            </c:forEach>
+
+                                        </div>
+                                    </div>
+                                </td>
                                 <td>${card.account.balance}</td>
                                 <td>${card.account.user.firstName} ${card.account.user.lastName}</td>
 
                             </tr>
                         </c:forEach>
 
+
                         </tbody>
                     </table>
+
+                    <!--
+                                      <div class="my-2"></div>
+                                      <a href="#" class="btn btn-light btn-icon-split" data-toggle="dropdown">
+                                                          <span class="icon text-gray-600">
+                                                              <i class="far fa-credit-card"></i>
+                                                          </span>
+                                          <span class="text">Create new card</span>
+                                      </a>
+                  -->
+
+                    <a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
+                       data-target="#collapseUtilities"
+                       aria-expanded="true" aria-controls="collapseUtilities">
+                           <span class="icon text-gray-600">
+                                            <i class="far fa-credit-card"></i>
+                                        </span>
+                        <span class="text">Create new card</span>
+                    </a>
+
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Select card:</h6>
+                            <c:forEach items="${cardName}" var="value">
+                                <a class="dropdown-item" href="createCard?cardName=${value}">${value}</a>
+                            </c:forEach>
+
+                        </div>
+                    </div>
+
+
+                    <div class="mb-4"></div>
+
+
                 </div>
+
             </div>
         </div>
-
     </div>
-    <!-- End of Main Content -->
+
 </div>
-    <!-- Footer -->
-    <c:import url="footer-part.jsp"/>
-    <!-- End of Footer -->
+<!-- End of Main Content -->
+
+
+<!-- Footer -->
+<c:import url="footer-part.jsp"/>
+<!-- End of Footer -->
 
 
 <!-- End of Content Wrapper -->
@@ -86,4 +141,4 @@
 
 </body>
 
-</html>
+        </html>

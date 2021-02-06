@@ -1,13 +1,18 @@
 package com.project.petbankspring.service;
 
+import com.project.petbankspring.model.Account;
 import com.project.petbankspring.model.Card;
+import com.project.petbankspring.model.User;
+import com.project.petbankspring.model.enums.CardCondition;
+import com.project.petbankspring.model.enums.CardName;
+import com.project.petbankspring.repository.AccountRepo;
 import com.project.petbankspring.repository.CardRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,8 @@ public class CardService {
     @Autowired
     private CardRepo cardRepo;
     @Autowired
+    private AccountRepo accountRepo;
+    @Autowired
     private UserService userService;
 
     public List<Card> findUserCards(){
@@ -26,13 +33,7 @@ public class CardService {
 
 
 
-    /**
-     * Validates the User's login and verifies whether it corresponds with the Password
-     *
-     * @param login
-     * @param password
-     * @return
-     */
+
 
 
 //    public Optional<User> validateUser(String login, String password) {
@@ -41,26 +42,32 @@ public class CardService {
 //                ? Optional.of(user) : Optional.empty();
 //    }
 
-    /**
-     * Converts data from RegistrationForm to User and stores it into DB
-     *
-     * @param form
-     * @param role
-     * @return
-     */
-//    public User registerUser(RegistrationForm form, Role role) {
-//        log.info("Register user");
-//        if (userRepo.existsByLogin(form.getLogin())) {
-//            throw new UserExistException(String.format("User with login %s already exists", form.getLogin()));
-//        }
-//
-//        String password = passwordEncoder.encode(form.getPassword());
-//
-//        User user = new User(form.getFirstName(), form.getLastName(), form.getLogin(), password, true, role);
-//        log.info("Save new user: " + user);
-//        return userRepo.save(user);
-//    }
 
+    public Card createCard(CardName cardName) {
+        log.info("Create card");
+        Long cardNumber =generateCardNumber();
+        return cardRepo.save(Card.builder()
+                .cardName(cardName)
+                .number(cardNumber)
+                .condition(CardCondition.ACTIVE)
+                .account(createAccount(userService.getCurrentUser(),cardNumber))
+        .build());
+
+    }
+
+    public Account createAccount(User user, Long cardNumber){
+        return accountRepo.save(Account.builder()
+                .number("UA2600"+cardNumber)
+                .user(user)
+                .condition(true)
+                .balance(new BigDecimal(0))
+                .build());
+    }
+
+    public Long generateCardNumber(){
+    Long newNumber = (cardRepo.findMaxValueByNumber());
+        return ++newNumber ;
+    }
     /**
      * Gets current authorized User from Context
      *
@@ -92,7 +99,7 @@ public class CardService {
      * @param profileForm
      * @return
      */
-//    public User updateCard (ProfileForm profileForm) {
+//    public Card updateCard (ProfileForm profileForm) {
 //        log.info("Edit profile");
 //        User user = getCurrentUser();
 //        user.setLogin(profileForm.getLogin());
@@ -112,17 +119,17 @@ public class CardService {
      * @param id
      * @return
      */
-    public Card getCardById(Long id) {
-        Card cardProfile = null;
-        Optional<Card> card = cardRepo.findById(id);
-        if (card.isPresent()) {
-            cardProfile = card.get();
-        } else {
-            log.info("Card not found!");
-        }
-        log.info("user for Edit: " + cardProfile);
-        return cardProfile;
-    }
+//    public Card getCardById(Long id) {
+//        Card cardProfile = null;
+//        Optional<Card> card = cardRepo.findById(id);
+//        if (card.isPresent()) {
+//            cardProfile = card.get();
+//        } else {
+//            log.info("Card not found!");
+//        }
+//        log.info("user for Edit: " + cardProfile);
+//        return cardProfile;
+//    }
 
     /**
      * Uses by admin role to update other users profile
@@ -162,7 +169,7 @@ public class CardService {
      *
      * @param id
      */
-    public void deleteCard(Long id) {
-        cardRepo.deleteById(id);
-    }
+//    public void deleteCard(Long id) {
+//        cardRepo.deleteById(id);
+//    }
 }
