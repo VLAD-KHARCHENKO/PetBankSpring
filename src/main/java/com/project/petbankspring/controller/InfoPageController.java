@@ -1,36 +1,27 @@
 package com.project.petbankspring.controller;
 
 
-
 import com.project.petbankspring.repository.CardRepo;
 import com.project.petbankspring.repository.UserRepo;
 import com.project.petbankspring.service.CardService;
+import com.project.petbankspring.service.PaymentService;
 import com.project.petbankspring.service.UserService;
-import lombok.extern.java.Log;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.awt.print.Pageable;
-
+@AllArgsConstructor
 @Slf4j
 @Controller
 public class InfoPageController {
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private UserRepo userRepo;
-
-    @Autowired
     private CardService cardService;
-
-    @Autowired
     private CardRepo cardRepo;
+
 
 
     @GetMapping(value = "/index")
@@ -70,17 +61,13 @@ public class InfoPageController {
         return "accounts";
     }
 
-    @GetMapping(value = "/statements")
-    public String statements() {
-        log.info("statements Controller");
-        return "statements";
-    }
+
 
 
     @GetMapping(value = "/users")
     public String users(Model model) {
         log.info("users Controller");
-        model.addAttribute("users",userRepo.findAll());
+        model.addAttribute("users", userRepo.findAll());
 
         return "users";
     }

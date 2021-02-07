@@ -1,84 +1,71 @@
 package com.project.petbankspring.service;
 
-import com.project.petbankspring.model.Account;
-import com.project.petbankspring.model.Card;
-import com.project.petbankspring.model.User;
-import com.project.petbankspring.model.enums.CardCondition;
-import com.project.petbankspring.model.enums.CardName;
-import com.project.petbankspring.repository.AccountRepo;
-import com.project.petbankspring.repository.CardRepo;
+import com.project.petbankspring.model.Payment;
+import com.project.petbankspring.repository.PaymentRepo;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
+@AllArgsConstructor
 @Service
-public class CardService {
+public class PaymentService {
 
-    @Autowired
-    private CardRepo cardRepo;
-    @Autowired
-    private AccountRepo accountRepo;
-    @Autowired
-    private UserService userService;
+    private PaymentRepo paymentRepo;
 
-    public List<Card> findUserCards(){
-        return cardRepo.findAllByUserId(userService.getCurrentUser().getId());
+    public List<Payment> findPaidPaymentsByAccountId(long id) {
+        return paymentRepo.findAllPaidByAccountId(id);
     }
 
+    public List<Payment> findSavePaymentsByAccountId(long id) {
+        return paymentRepo.findAllSaveByAccountId(id);
+    }
 
-
-
-
-
-//    public Optional<User> validateUser(String login, String password) {
-//        User user = userRepo.findByLogin(login);
-//        return user != null && user.getPassword().equals(password)
-//                ? Optional.of(user) : Optional.empty();
+//
+//
+//
+//
+////    public Optional<User> validateUser(String login, String password) {
+////        User user = userRepo.findByLogin(login);
+////        return user != null && user.getPassword().equals(password)
+////                ? Optional.of(user) : Optional.empty();
+////    }
+//
+//
+//    public Card createCard(CardName cardName) {
+//        log.info("Create card");
+//        Long cardNumber =generateCardNumber();
+//        return cardRepo.save(Card.builder()
+//                .cardName(cardName)
+//                .number(cardNumber)
+//                .condition(CardCondition.ACTIVE)
+//                .account(createAccount(userService.getCurrentUser(),cardNumber))
+//        .build());
+//
 //    }
-
-
-    public Card createCard(CardName cardName) {
-        log.info("Create card");
-        Long cardNumber =generateCardNumber();
-        return cardRepo.save(Card.builder()
-                .cardName(cardName)
-                .number(cardNumber)
-                .condition(CardCondition.ACTIVE)
-                .account(createAccount(userService.getCurrentUser(),cardNumber))
-        .build());
-
-    }
-
-    public Account createAccount(User user, Long cardNumber){
-        return accountRepo.save(Account.builder()
-                .number("UA2600"+cardNumber)
-                .user(user)
-                .condition(true)
-                .balance(new BigDecimal(0))
-                .build());
-    }
-
-    public Long generateCardNumber(){
-    Long newNumber = (cardRepo.findMaxValueByNumber());
-        return ++newNumber ;
-    }
-
-    public Card findCardByAccountId(Long id) {
-          return cardRepo.findByAccountId(id);
-    }
-    /**
-     * Gets current authorized User from Context
-     *
-     * @return
-     * @throws NotFoundException
-     */
-//    public Card getCurrentCard() throws NotFoundException {
+//
+//    public Account createAccount(User user, Long cardNumber){
+//        return accountRepo.save(Account.builder()
+//                .number("UA2600"+cardNumber)
+//                .user(user)
+//                .condition(true)
+//                .balance(new BigDecimal(0))
+//                .build());
+//    }
+//
+//    public Long generateCardNumber(){
+//    Long newNumber = (cardRepo.findMaxValueByNumber());
+//        return ++newNumber ;
+//    }
+//    /**
+//     * Gets current authorized User from Context
+//     *
+//     * @return
+//     * @throws NotFoundException
+//     */
+////    public Card getCurrentCard() throws NotFoundException {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //
 //        if (null == auth) {

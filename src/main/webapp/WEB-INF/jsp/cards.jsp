@@ -39,7 +39,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-
+                            <th>Statements</th>
                             <th>Card name</th>
                             <th>Number</th>
                             <th>Balance</th>
@@ -52,7 +52,7 @@
                         <tbody>
                         <c:forEach items="${cards}" var="card">
                             <tr>
-
+                                <td><a href="statements/${card.account.id}" class="search_link">-></a></td>
                                 <td>${card.cardName}</td>
                                 <td>${card.number}</td>
                                 <td>${card.account.balance}</td>

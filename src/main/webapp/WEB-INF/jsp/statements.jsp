@@ -31,6 +31,80 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Statements Page</h1>
 
+                    ${card.cardName}
+                    ${card.number}
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable1 " width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>date</th>
+                                    <th>debit.number</th>
+                                    <th>credit.number</th>
+                                    <th>amount</th>
+                                    <th>description</th>
+                                    <th>Status</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${paidPayments}" var="paidPayment">
+                                    <tr>
+                                        <td>${paidPayment.id}</td>
+                                        <td>${paidPayment.date}</td>
+                                        <td>${paidPayment.debit.number}</td>
+                                        <td>${paidPayment.credit.number}</td>
+                                        <td>${paidPayment.amount}</td>
+                                        <td>${paidPayment.description}</td>
+                                        <td>${paidPayment.status}</td>
+
+
+                                    </tr>
+                                </c:forEach>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>date</th>
+                                    <th>debit.number</th>
+                                    <th>credit.number</th>
+                                    <th>amount</th>
+                                    <th>description</th>
+                                    <th>Status</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <c:forEach items="${savedPayments}" var="savedPayment">
+                                    <tr>
+                                        <td>${savedPayment.id}</td>
+                                        <td>${savedPayment.date}</td>
+                                        <td>${savedPayment.debit.number}</td>
+                                        <td>${savedPayment.credit.number}</td>
+                                        <td>${savedPayment.amount}</td>
+                                        <td>${savedPayment.description}</td>
+                                        <td>${savedPayment.status}</td>
+
+
+                                    </tr>
+                                </c:forEach>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 

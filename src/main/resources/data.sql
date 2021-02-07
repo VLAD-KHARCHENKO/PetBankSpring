@@ -26,12 +26,15 @@ insert into `card`  (`card_name`,`number`,`condition`, `account_id`)  values
 ('UNIVERSAL', 1238, 'ACTIVE', 5),
 ('INTERNET', 1239, 'BLOCKED', 6),
 ('UNIVERSAL', 1240, 'PENDING', 7),
-('ANOTHER', 1241, 'ACTIVE', 8),
+('UNIVERSAL', 1241, 'ACTIVE', 8),
 ('UNIVERSAL', 1242, 'BLOCKED', 9),
 ('CREDIT', 1243, 'PENDING', 10);
 
 insert into `payment`  (`date`, `debit_account_id`,`credit_account_id`, `amount`, `description`, `status`)  values
 ('2019-08-20 15:30:53', 1, 2, 20.00, 'оплата за','SAVE'),
+('2019-08-20 15:30:53', 1, 2, 20.00, 'оплата за','PAID'),
+('2019-08-20 15:30:53', 2, 1, 20.00, 'оплата за','SAVE'),
+('2019-08-20 15:30:53', 2, 1, 20.00, 'оплата за','PAID'),
 ('2019-08-20 12:20:53', 3, 4, 15.80, 'оплата за','PAID'),
 ('2019-08-25 14:40:00', 4, 2, 25.00, 'оплата за','PAID'),
 ('2019-09-12 15:50:53', 3, 2, 20.30, 'оплата за','PAID');
