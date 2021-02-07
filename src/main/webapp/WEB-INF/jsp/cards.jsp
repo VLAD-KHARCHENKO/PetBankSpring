@@ -39,40 +39,37 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>ID</th>
+
                             <th>Card name</th>
                             <th>Number</th>
-                            <th>isActive</th>
-                            <th>Account</th>
-                            <th>User Name</th>
+                            <th>Balance</th>
+                            <th>Condition</th>
+                            <th>Change</th>
+
                         </tr>
                         </thead>
 
                         <tbody>
                         <c:forEach items="${cards}" var="card">
                             <tr>
-                                <td>${card.id}</td>
+
                                 <td>${card.cardName}</td>
                                 <td>${card.number}</td>
-                                <td><a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
-                                       data-target="#collapseUtilities"
-                                       aria-expanded="true" aria-controls="collapseUtilities">
-
-                                    <span class="text">${card.condition}</span>
-                                </a>
-
-                                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                                         data-parent="#accordionSidebar">
-                                        <div class="bg-white py-2 collapse-inner rounded">
-                                                                                       <c:forEach items="${cardCondition}" var="value">
-                                                <a class="dropdown-item" href="createCard?cardCondition=${value}">${value}</a>
-                                            </c:forEach>
-
-                                        </div>
-                                    </div>
-                                </td>
                                 <td>${card.account.balance}</td>
-                                <td>${card.account.user.firstName} ${card.account.user.lastName}</td>
+                                <td>${card.condition}</td>
+                                <td><a href="profile?id=${user.id}" class="search_link">
+                                    <c:choose>
+                                    <c:when test="${card.condition == 'ACTIVE'}">
+                                          Blocked the card
+                                    </c:when>
+                                        <c:when test="${card.condition == 'PENDING'}">
+
+                                        </c:when>
+                                    </c:choose>
+
+                                </a></td>
+
+                                <!--  <td>${card.account.user.firstName} ${card.account.user.lastName}</td>-->
 
                             </tr>
                         </c:forEach>
