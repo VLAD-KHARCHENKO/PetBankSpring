@@ -59,13 +59,7 @@ public class InfoPageController {
 
 
 
-    @GetMapping(value = "/users")
-    public String users(Model model) {
-        log.info("users Controller");
-        model.addAttribute("users", userRepo.findAll());
 
-        return "users";
-    }
 
     @GetMapping(value = "/payments")
     public String payments(Model model) {

@@ -32,10 +32,10 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">All users</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -70,6 +70,41 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Pagination-->
+                        <nav aria-label="Page navigation example">
+                            <c:if test="${usersPages > 1}">
+                                <ul class="pagination">
+                                    <c:choose>
+                                        <c:when test="${currentPage  != 0 }">
+                                            <li class="page-item"><a href="users?page=${currentPage-1}&size=3"><span class="page-link">Prev</span></a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:forEach var = "numberPage" begin = "1" end = "${usersPages}">
+                                        <c:choose>
+                                            <c:when test="${currentPage == (numberPage-1) }">
+                                                <li class="page-item active"><a href="users?page=${numberPage-1}&size=3" class="page-link">${numberPage}</a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item"><a href="users?page=${numberPage-1}&size=3" class="page-link">${numberPage}</a></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${currentPage < (usersPages-1) }">
+                                            <li class="page-item"><a href="users?page=${currentPage+1}&size=3"><span class="page-link">Next</span></a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </ul>
+                            </c:if>
+                        </nav>
+
                     </div>
                 </div>
             </div>

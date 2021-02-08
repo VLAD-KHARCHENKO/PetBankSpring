@@ -8,6 +8,8 @@ import com.project.petbankspring.model.enums.Role;
 import com.project.petbankspring.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -181,5 +183,9 @@ public class UserService {
      */
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
+    }
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepo.findAll(pageable);
     }
 }
