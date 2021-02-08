@@ -53,7 +53,7 @@
     </security:authorize>
     <security:authorize access="hasRole('ROLE_ADMIN')">
             <li class="nav-item">
-                <a class="nav-link" href="users">
+                <a class="nav-link" href="users?page=0&size=3">
                     <i class="fas fa-users"></i>
                     <span>Users</span></a>
             </li>

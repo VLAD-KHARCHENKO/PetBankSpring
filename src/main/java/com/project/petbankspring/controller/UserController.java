@@ -7,7 +7,9 @@ package com.project.petbankspring.controller;
 //import com.example.repairagencyspringboot.repository.OrderRepo;
 //import com.example.repairagencyspringboot.repository.UserRepo;
 //import com.example.repairagencyspringboot.service.UserService;
+
 import com.project.petbankspring.controller.dto.ProfileForm;
+import com.project.petbankspring.model.User;
 import com.project.petbankspring.repository.UserRepo;
 import com.project.petbankspring.service.UserService;
 import lombok.AllArgsConstructor;
@@ -23,12 +25,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 @Slf4j
 @Controller
 @AllArgsConstructor
 public class UserController {
 
-          private UserService userService;
+    private UserService userService;
+
 
 
     @GetMapping(value = "profile")
@@ -49,5 +53,14 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping(value = "users")
+    public String users(Model model, Pageable pageable) {
+        log.info("users Controller");
+        Page<User> users = userService.findAll(pageable);
+        model.addAttribute("users", users.getContent());
+        model.addAttribute("usersPages", users.getTotalPages());
+        model.addAttribute("currentPage", pageable.getPageNumber());
 
+        return "users";
+    }
 }

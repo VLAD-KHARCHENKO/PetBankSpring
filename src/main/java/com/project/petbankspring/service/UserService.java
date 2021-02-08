@@ -8,6 +8,8 @@ import com.project.petbankspring.model.enums.Role;
 import com.project.petbankspring.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -102,6 +104,7 @@ public class UserService {
     }
 
 
+
     /**
      * Takes data from ProfileForm to User and updates it in DB
      *
@@ -140,6 +143,27 @@ public class UserService {
         return userProfile;
     }
 
+    /**
+     * Uses by admin role to update other users profile
+     * Takes data from UserProfileForm to User and updates it in DB
+     *
+     * @param form
+     * @return
+     */
+//    public User updateUserProfile(UserProfileForm form) {
+//        LOG.info("Edit user profile");
+//        Long id = Long.parseLong(form.getUserId());
+//        User user = getUserById(id);
+//
+//        user.setLogin(form.getLogin());
+//        user.setFirstName(form.getFirst_name());
+//        user.setLastName(form.getLast_name());
+//        user.setPhone(form.getPhone());
+//        user.setRole(Role.valueOf(form.getRole()));
+//        LOG.info("updated user: " + user);
+//
+//        return userRepo.save(user);
+//    }
 
     /**
      * Gets the List of Roles from Enums
@@ -159,5 +183,9 @@ public class UserService {
      */
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
+    }
+
+    public Page<User> findAll(Pageable pageable) {
+        return userRepo.findAll(pageable);
     }
 }
