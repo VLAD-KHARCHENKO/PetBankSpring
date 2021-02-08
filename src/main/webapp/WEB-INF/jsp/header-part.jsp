@@ -38,13 +38,13 @@
                     <span>Cards</span></a>
 
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="statements">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Statements</span></a>
-            </li>
-            <!-- Nav Item - Charts -->
+        <!--
+                    <li class="nav-item">
+                        <a class="nav-link" href="statements">
+                            <i class="fas fa-fw fa-table"></i>
+                            <span>Statements</span></a>
+                    </li>
+                     -->
             <li class="nav-item">
                 <a class="nav-link" href="payments">
                     <i class="fas fa-fw fa-chart-area"></i>

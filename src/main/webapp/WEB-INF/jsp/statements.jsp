@@ -33,78 +33,100 @@
 
                     ${card.cardName}
                     ${card.number}
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Accordion -->
+                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                           role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                            <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="collapseCardExample">
+                            <div class="card-body">
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable1 " width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>date</th>
-                                    <th>debit.number</th>
-                                    <th>credit.number</th>
-                                    <th>amount</th>
-                                    <th>description</th>
-                                    <th>Status</th>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>date</th>
+                                                <th>debit.number</th>
+                                                <th>credit.number</th>
+                                                <th>amount</th>
+                                                <th>description</th>
+                                                <th>Status</th>
 
-                                </tr>
-                                </thead>
+                                            </tr>
+                                            </thead>
 
-                                <tbody>
-                                <c:forEach items="${paidPayments}" var="paidPayment">
-                                    <tr>
-                                        <td>${paidPayment.id}</td>
-                                        <td>${paidPayment.date}</td>
-                                        <td>${paidPayment.debit.number}</td>
-                                        <td>${paidPayment.credit.number}</td>
-                                        <td>${paidPayment.amount}</td>
-                                        <td>${paidPayment.description}</td>
-                                        <td>${paidPayment.status}</td>
+                                            <tbody>
+                                            <c:forEach items="${savedPayments}" var="savedPayment">
+                                                <tr>
+                                                    <td>${savedPayment.id}</td>
+                                                    <td>${savedPayment.date}</td>
+                                                    <td>${savedPayment.debit.number}</td>
+                                                    <td>${savedPayment.credit.number}</td>
+                                                    <td>${savedPayment.amount}</td>
+                                                    <td>${savedPayment.description}</td>
+                                                    <td>${savedPayment.status}</td>
 
 
-                                    </tr>
-                                </c:forEach>
+                                                </tr>
+                                            </c:forEach>
 
-                                </tbody>
-                            </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>date</th>
-                                    <th>debit.number</th>
-                                    <th>credit.number</th>
-                                    <th>amount</th>
-                                    <th>description</th>
-                                    <th>Status</th>
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Accordion -->
+                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                           role="button" aria-expanded="true" aria-controls="collapseCardExample1">
+                            <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="collapseCardExample1">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable1 " width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>date</th>
+                                            <th>debit.number</th>
+                                            <th>credit.number</th>
+                                            <th>amount</th>
+                                            <th>description</th>
+                                            <th>Status</th>
 
-                                </tr>
-                                </thead>
+                                        </tr>
+                                        </thead>
 
-                                <tbody>
-                                <c:forEach items="${savedPayments}" var="savedPayment">
-                                    <tr>
-                                        <td>${savedPayment.id}</td>
-                                        <td>${savedPayment.date}</td>
-                                        <td>${savedPayment.debit.number}</td>
-                                        <td>${savedPayment.credit.number}</td>
-                                        <td>${savedPayment.amount}</td>
-                                        <td>${savedPayment.description}</td>
-                                        <td>${savedPayment.status}</td>
+                                        <tbody>
+                                        <c:forEach items="${paidPayments}" var="paidPayment">
+                                            <tr>
+                                                <td>${paidPayment.id}</td>
+                                                <td>${paidPayment.date}</td>
+                                                <td>${paidPayment.debit.number}</td>
+                                                <td>${paidPayment.credit.number}</td>
+                                                <td>${paidPayment.amount}</td>
+                                                <td>${paidPayment.description}</td>
+                                                <td>${paidPayment.status}</td>
 
 
-                                    </tr>
-                                </c:forEach>
+                                            </tr>
+                                        </c:forEach>
 
-                                </tbody>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
                 <!-- /.container-fluid -->
 

@@ -59,9 +59,9 @@
                                 <td>${card.condition}</td>
                                 <td><a href="profile?id=${user.id}" class="search_link">
                                     <c:choose>
-                                    <c:when test="${card.condition == 'ACTIVE'}">
-                                          Blocked the card
-                                    </c:when>
+                                        <c:when test="${card.condition == 'ACTIVE'}">
+                                            Blocked the card
+                                        </c:when>
                                         <c:when test="${card.condition == 'PENDING'}">
 
                                         </c:when>
@@ -78,15 +78,6 @@
                         </tbody>
                     </table>
 
-                    <!--
-                                      <div class="my-2"></div>
-                                      <a href="#" class="btn btn-light btn-icon-split" data-toggle="dropdown">
-                                                          <span class="icon text-gray-600">
-                                                              <i class="far fa-credit-card"></i>
-                                                          </span>
-                                          <span class="text">Create new card</span>
-                                      </a>
-                  -->
 
                     <a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
                        data-target="#collapseUtilities"
@@ -113,7 +104,23 @@
 
 
                 </div>
-
+                <form class="row g-3">
+                    <div class="col-auto">
+                        <div class="input-group">
+                            <span class="input-group-text">Create new</span>
+                            <select class="form-control" >
+                                <c:forEach items="${cardName}" var="value">
+                                    <option value="${value}">${value}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">CARD
+                            <i class="fas fa-fw  fa-credit-card"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
