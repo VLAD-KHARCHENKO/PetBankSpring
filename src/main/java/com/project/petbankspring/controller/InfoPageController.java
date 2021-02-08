@@ -67,12 +67,7 @@ public class InfoPageController {
         return "users";
     }
 
-    @GetMapping(value = "/payments")
-    public String payments(Model model) {
-        log.info("payments Controller");
-        model.addAttribute("cards", cardService.findUserCards());
-        return "payments";
-    }
+
 
 
 }

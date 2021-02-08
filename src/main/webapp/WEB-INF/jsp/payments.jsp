@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
@@ -26,7 +28,8 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-            <form>
+            <form:form class="row g-3" action="payments" method="post"
+                       modelAttribute="paymentForm">
                 <div class="row">
 
                     <div class="col-xl-4 col-md-6 mb-4">
@@ -38,26 +41,27 @@
                                             From the card
                                         </div>
 
-                                        <select class="form-control mb-3">
+                                        <form:select path="debit" class="form-control mb-3">
 
                                             <c:forEach items="${cards}" var="card">
-                                                <option value="${card.number}">${card.cardName} - ${card.number} -
+                                                <form:option value="${card.number}">${card.cardName} - ${card.number} -
                                                     ${card.account.balance}$
-                                                </option>
+                                                </form:option>
 
                                             </c:forEach>
-                                        </select>
+                                        </form:select>
                                         <div class="input-group">
-                                            <input type="text" class="form-control"
-                                                   aria-label="Dollar amount (with dot and two decimal places)">
+                                            <form:input path="amount" type="text" class="form-control"
+                                                   aria-label="Dollar amount (with dot and two decimal places)"/>
                                             <span class="input-group-text">$</span>
                                             <span class="input-group-text">0.00</span>
+                                            <form:errors path="amount"/>
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1"
                                                    class="form-label">Description</label>
-                                            <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                      rows="3"></textarea>
+                                            <form:textarea path="description" class="form-control" id="exampleFormControlTextarea1"
+                                                      rows="3"></form:textarea>
                                         </div>
 
                                     </div>
@@ -79,9 +83,10 @@
                                         </div>
 
                                         <div class="input-group">
-                                            <input type="text" class="form-control"
-                                                   aria-label="Dollar amount (with dot and two decimal places)">
+                                            <form:input path="credit" type="text" class="form-control"
+                                                   aria-label="Dollar amount (with dot and two decimal places)"/>
                                             <span class="input-group-text">CARD NUMBER</span>
+                                            <form:errors path="credit"/>
                                         </div>
                                         <br/>
                                         <h5 class="card-title">Special title treatment</h5>
@@ -98,7 +103,7 @@
 
                     </div>
                 </div>
-            </form>
+            </form:form>
         </div>
         <!-- /.container-fluid -->
 
