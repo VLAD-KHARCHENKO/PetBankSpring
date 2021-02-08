@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface PaymentRepo extends CrudRepository<Payment, Long> {
 
-
-
     @Query("select payment from Payment payment where payment.status = 'PAID' and (payment.debit.id= :accountId or payment.credit.id = :accountId)" )
     List<Payment> findAllPaidByAccountId(long accountId);
 

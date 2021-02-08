@@ -42,12 +42,7 @@ public class InfoPageController {
         return "user";
     }
 
-//    @GetMapping(value = "/cards")
-//    public String cards(Model model) {
-//        log.info("cards Controller");
-//        model.addAttribute("cards",cardService.findUserCards());
-//        return "cards";
-//    }
+
 
     @GetMapping(value = "/")
     public String home() {

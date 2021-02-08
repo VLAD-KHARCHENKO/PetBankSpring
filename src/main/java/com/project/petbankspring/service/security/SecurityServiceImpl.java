@@ -1,5 +1,6 @@
 package com.project.petbankspring.service.security;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,11 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @Slf4j
 @Service
+@AllArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
 

@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
 <head>
@@ -78,41 +79,42 @@
                         </tbody>
                     </table>
 
+                    <!--
+                                       <a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
+                                          data-target="#collapseUtilities"
+                                          aria-expanded="true" aria-controls="collapseUtilities">
+                                              <span class="icon text-gray-600">
+                                                               <i class="far fa-credit-card"></i>
+                                                           </span>
+                                           <span class="text">Create new card</span>
+                                       </a>
 
-                    <a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
-                       data-target="#collapseUtilities"
-                       aria-expanded="true" aria-controls="collapseUtilities">
-                           <span class="icon text-gray-600">
-                                            <i class="far fa-credit-card"></i>
-                                        </span>
-                        <span class="text">Create new card</span>
-                    </a>
+                                       <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                                            data-parent="#accordionSidebar">
+                                           <div class="bg-white py-2 collapse-inner rounded">
+                                               <h6 class="collapse-header">Select card:</h6>
+                                               <c:forEach items="${cardName}" var="value">
+                                                   <a class="dropdown-item" href="createCard?cardName=${value}">${value}</a>
+                                               </c:forEach>
 
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                         data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Select card:</h6>
-                            <c:forEach items="${cardName}" var="value">
-                                <a class="dropdown-item" href="createCard?cardName=${value}">${value}</a>
-                            </c:forEach>
-
-                        </div>
-                    </div>
-
+                                           </div>
+                                       </div>
+                                       -->
 
                     <div class="mb-4"></div>
 
 
                 </div>
-                <form class="row g-3">
+                <form:form  class="row g-3"   modelAttribute="cardForm" action="cards" method="post">
                     <div class="col-auto">
                         <div class="input-group">
                             <span class="input-group-text">Create new</span>
-                            <select class="form-control" >
+                            <form:select path="cardName" class="form-control" >
                                 <c:forEach items="${cardName}" var="value">
-                                    <option value="${value}">${value}</option>
+                                    <form:option value="${value}">${value}</form:option>
                                 </c:forEach>
-                            </select>
+                            </form:select>
+                            <form:errors path="cardName"/>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -120,7 +122,8 @@
                             <i class="fas fa-fw  fa-credit-card"></i>
                         </button>
                     </div>
-                </form>
+                </form:form>
+
             </div>
         </div>
     </div>

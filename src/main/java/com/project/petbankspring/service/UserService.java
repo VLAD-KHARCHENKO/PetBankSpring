@@ -3,16 +3,11 @@ package com.project.petbankspring.service;
 import com.project.petbankspring.controller.dto.ProfileForm;
 import com.project.petbankspring.controller.dto.RegistrationForm;
 import com.project.petbankspring.exception.UserExistException;
-import com.project.petbankspring.controller.dto.ProfileForm;
-import com.project.petbankspring.controller.dto.RegistrationForm;
-import com.project.petbankspring.exception.UserExistException;
 import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.Role;
 import com.project.petbankspring.repository.UserRepo;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,13 +19,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 @Slf4j
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
+
     private UserRepo userRepo;
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     /**
@@ -106,7 +102,6 @@ public class UserService {
     }
 
 
-
     /**
      * Takes data from ProfileForm to User and updates it in DB
      *
@@ -145,27 +140,6 @@ public class UserService {
         return userProfile;
     }
 
-    /**
-     * Uses by admin role to update other users profile
-     * Takes data from UserProfileForm to User and updates it in DB
-     *
-     * @param form
-     * @return
-     */
-//    public User updateUserProfile(UserProfileForm form) {
-//        LOG.info("Edit user profile");
-//        Long id = Long.parseLong(form.getUserId());
-//        User user = getUserById(id);
-//
-//        user.setLogin(form.getLogin());
-//        user.setFirstName(form.getFirst_name());
-//        user.setLastName(form.getLast_name());
-//        user.setPhone(form.getPhone());
-//        user.setRole(Role.valueOf(form.getRole()));
-//        LOG.info("updated user: " + user);
-//
-//        return userRepo.save(user);
-//    }
 
     /**
      * Gets the List of Roles from Enums
