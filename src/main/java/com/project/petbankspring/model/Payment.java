@@ -1,13 +1,12 @@
 package com.project.petbankspring.model;
 
+import com.project.petbankspring.model.enums.Status;
+import lombok.*;
 
-        import com.project.petbankspring.model.enums.Status;
-        import lombok.*;
-
-        import javax.persistence.*;
-        import java.math.BigDecimal;
-        import java.time.LocalDate;
-        import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity

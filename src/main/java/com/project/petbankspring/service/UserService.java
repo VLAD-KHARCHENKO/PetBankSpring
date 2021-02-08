@@ -102,6 +102,7 @@ public class UserService {
     }
 
 
+
     /**
      * Takes data from ProfileForm to User and updates it in DB
      *
@@ -140,6 +141,27 @@ public class UserService {
         return userProfile;
     }
 
+    /**
+     * Uses by admin role to update other users profile
+     * Takes data from UserProfileForm to User and updates it in DB
+     *
+     * @param form
+     * @return
+     */
+//    public User updateUserProfile(UserProfileForm form) {
+//        LOG.info("Edit user profile");
+//        Long id = Long.parseLong(form.getUserId());
+//        User user = getUserById(id);
+//
+//        user.setLogin(form.getLogin());
+//        user.setFirstName(form.getFirst_name());
+//        user.setLastName(form.getLast_name());
+//        user.setPhone(form.getPhone());
+//        user.setRole(Role.valueOf(form.getRole()));
+//        LOG.info("updated user: " + user);
+//
+//        return userRepo.save(user);
+//    }
 
     /**
      * Gets the List of Roles from Enums
