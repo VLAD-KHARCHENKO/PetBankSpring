@@ -51,7 +51,7 @@
                                             </c:forEach>
                                         </form:select>
                                         <div class="input-group">
-                                            <form:input path="amount" type="text" class="form-control"
+                                            <form:input path="amount" class="form-control"
                                                    aria-label="Dollar amount (with dot and two decimal places)"/>
                                             <span class="input-group-text">$</span>
                                             <span class="input-group-text">0.00</span>
@@ -92,6 +92,7 @@
                                         <h5 class="card-title">Special title treatment</h5>
                                         <p class="card-text">With supporting text below as a natural lead-in to
                                             additional content.</p>
+                                        <form:input path="cardNumber" type="hidden" name="cardNumber" value="${card.number}"/>
                                         <div class="d-grid gap-2 col-6 mx-auto">
                                             <button class="btn btn-success" type="submit">Button</button>
                                         </div>

@@ -42,9 +42,9 @@ public class PaymentController {
     }
 
     @PostMapping(value = "payments")
-    public String addPayment(@ModelAttribute("paymentForm") PaymentForm paymentForm ) {
-
-        return "redirect:/cards";
+    public String addPayment(@ModelAttribute("paymentForm") PaymentForm paymentForm) {
+        paymentService.createPayment(paymentForm);
+        return "redirect:/statements/1"+(paymentForm.getCardNumber());
 
     }
 
