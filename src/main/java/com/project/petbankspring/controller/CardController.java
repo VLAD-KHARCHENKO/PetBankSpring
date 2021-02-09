@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class CardController {
 
-    @Autowired
-    private CardRepo cardRepo;
-
-    @Autowired
     private CardService cardService;
 
 

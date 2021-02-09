@@ -34,12 +34,12 @@
                 ${card.cardName}
                 ${card.number}
                 <div class="card shadow mb-4">
-                    <!-- Card Header - Accordion -->
+
                     <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
                         <h6 class="m-0 font-weight-bold text-primary">Saved Payments</h6>
                     </a>
-                    <!-- Card Content - Collapse -->
+
                     <div class="collapse" id="collapseCardExample">
                         <div class="card-body">
 
@@ -49,8 +49,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>date</th>
-                                        <th>debit.number</th>
                                         <th>credit.number</th>
+                                        <th>debit.number</th>
                                         <th>amount</th>
                                         <th>description</th>
                                         <th>Status</th>
@@ -63,8 +63,8 @@
                                         <tr>
                                             <td>${savedPayment.id}</td>
                                             <td>${savedPayment.date}</td>
-                                            <td>${savedPayment.debit.number}</td>
                                             <td>${savedPayment.credit.number}</td>
+                                            <td>${savedPayment.debit.number}</td>
                                             <td>${savedPayment.amount}</td>
                                             <td>${savedPayment.description}</td>
                                             <td>
@@ -86,12 +86,12 @@
                 </div>
 
                 <div class="card shadow mb-4">
-                    <!-- Card Header - Accordion -->
+
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse"
                        role="button" aria-expanded="true" aria-controls="collapseCardExample1">
                         <h6 class="m-0 font-weight-bold text-primary">Paid payments</h6>
                     </a>
-                    <!-- Card Content - Collapse -->
+
                     <div class="collapse show" id="collapseCardExample1">
                         <div class="card-body">
                             <div class="table-responsive">
@@ -100,8 +100,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>date</th>
-                                        <th>debit.number</th>
                                         <th>credit.number</th>
+                                        <th>debit.number</th>
                                         <th>amount</th>
                                         <th>description</th>
                                         <th>Status</th>
@@ -114,8 +114,8 @@
                                         <tr>
                                             <td>${paidPayment.id}</td>
                                             <td>${paidPayment.date}</td>
-                                            <td>${paidPayment.debit.number}</td>
                                             <td>${paidPayment.credit.number}</td>
+                                            <td>${paidPayment.debit.number}</td>
                                             <td>${paidPayment.amount}</td>
                                             <td>${paidPayment.description}</td>
                                             <td>${paidPayment.status}</td>
@@ -127,15 +127,56 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- Pagination-->
+                            <nav aria-label="Page navigation example">
+                                <c:if test="${paidPaymentsPages > 1}">
+                                    <ul class="pagination">
+                                        <c:choose>
+                                            <c:when test="${currentPage  != 0 }">
+                                                <li class="page-item"><a href="statements?page=${currentPage-1}&size=3"><span
+                                                        class="page-link">Prev</span></a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:forEach var="numberPage" begin="1" end="${paidPaymentsPages}">
+                                            <c:choose>
+                                                <c:when test="${currentPage == (numberPage-1) }">
+                                                    <li class="page-item active"><a
+                                                            href="statements?page=${numberPage-1}&size=3"
+                                                            class="page-link">${numberPage}</a></li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item"><a
+                                                            href="statements?page=${numberPage-1}&size=3"
+                                                            class="page-link">${numberPage}</a></li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${currentPage < (paidPaymentsPages-1) }">
+                                                <li class="page-item"><a href="statements?page=${currentPage+1}&size=3"><span
+                                                        class="page-link">Next</span></a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </ul>
+                                </c:if>
+                            </nav>
+
                         </div>
                     </div>
                 </div>
 
 
             </div>
-            <!-- /.container-fluid -->
+
 
         </div>
+
         <!-- End of Main Content -->
 
         <!-- Footer -->

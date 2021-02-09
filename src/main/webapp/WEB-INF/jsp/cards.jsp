@@ -52,7 +52,7 @@
                         <tbody>
                         <c:forEach items="${cards}" var="card">
                             <tr>
-                                <td><a href="statements/${card.account.id}" class="search_link">${card.cardName}</a>
+                                <td><a href="statements/${card.account.id}?page=0&size=3" class="search_link">${card.cardName}</a>
                                 </td>
                                 <td>${card.number}</td>
                                 <td>${card.account.balance}</td>

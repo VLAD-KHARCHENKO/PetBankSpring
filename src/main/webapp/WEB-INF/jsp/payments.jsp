@@ -41,7 +41,7 @@
                                             From the card
                                         </div>
 
-                                        <form:select path="debit" class="form-control mb-3">
+                                        <form:select path="credit" class="form-control mb-3">
 
                                             <c:forEach items="${cards}" var="card">
                                                 <form:option value="${card.number}">${card.cardName} - ${card.number} -
@@ -83,16 +83,15 @@
                                         </div>
 
                                         <div class="input-group">
-                                            <form:input path="credit" type="text" class="form-control"
+                                            <form:input path="debit" type="text" class="form-control"
                                                    aria-label="Dollar amount (with dot and two decimal places)"/>
                                             <span class="input-group-text">CARD NUMBER</span>
-                                            <form:errors path="credit"/>
+                                            <form:errors path="debit"/>
                                         </div>
                                         <br/>
                                         <h5 class="card-title">Special title treatment</h5>
                                         <p class="card-text">With supporting text below as a natural lead-in to
                                             additional content.</p>
-                                        <form:input path="cardNumber" type="hidden" name="cardNumber" value="${card.number}"/>
                                         <div class="d-grid gap-2 col-6 mx-auto">
                                             <button class="btn btn-success" type="submit">Button</button>
                                         </div>

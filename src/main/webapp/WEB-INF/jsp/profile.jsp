@@ -84,7 +84,7 @@
                                                 <form:errors path="login"/>
                                             </div>
 
-                                            <security:authorize access="hasRole('ROLE_ADMIN')">
+                                       <security:authorize access="hasRole('ROLE_ADMIN')">
 
                                                 <div class="form-group">
                                                     <label class="form-label-outside">
@@ -122,8 +122,8 @@
 
                                             </security:authorize>
                                             <security:authorize access="hasRole('ROLE_CUSTOMER')">
-                                                <input type="hidden" name="userId" value="${profileUser.condition}"/>
-                                                <input type="hidden" name="userId" value="${profileUser.role}"/>
+                                                <form:input path="condition"  type="hidden" name="condition" value="${profileUser.condition}"/>
+                                                <form:input path="role" type="hidden" name="role" value="${profileUser.role}"/>
                                             </security:authorize>
                                             <c:choose>
                                                 <c:when test="${profileUser.id == user.id}">
@@ -158,11 +158,11 @@
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <input type="hidden" name="userId" value="${profileUser.password}"/>
+                                                    <form:input path="password" type="hidden" name="password" value="${profileUser.password}"/>
                                                 </c:otherwise>
                                             </c:choose>
 
-                                            <input type="hidden" name="password" value="${profileUser.id}"/>
+                                            <form:input path="userId" type="hidden" name="id" value="${profileUser.id}"/>
 
                                             <button type="submit" class="btn btn-primary btn-user btn-block">Change
                                             </button>

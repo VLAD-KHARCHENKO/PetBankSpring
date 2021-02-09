@@ -113,12 +113,14 @@ public class UserService {
      */
     public User updateUser(ProfileForm profileForm) {
         log.info("Edit profile");
-        User user = getCurrentUser();
+        long id= Long.parseLong(profileForm.getUserId());
+        User user = userRepo.findById(id).get();
         user.setLogin(profileForm.getLogin());
         user.setFirstName(profileForm.getFirstName());
         user.setLastName(profileForm.getLastName());
         user.setCondition(profileForm.isCondition());
         user.setRole(profileForm.getRole());
+        user.setPassword(profileForm.getPassword());
 
 
         log.info("updated user: " + user);
@@ -143,27 +145,7 @@ public class UserService {
         return userProfile;
     }
 
-    /**
-     * Uses by admin role to update other users profile
-     * Takes data from UserProfileForm to User and updates it in DB
-     *
-     * @param form
-     * @return
-     */
-//    public User updateUserProfile(UserProfileForm form) {
-//        LOG.info("Edit user profile");
-//        Long id = Long.parseLong(form.getUserId());
-//        User user = getUserById(id);
-//
-//        user.setLogin(form.getLogin());
-//        user.setFirstName(form.getFirst_name());
-//        user.setLastName(form.getLast_name());
-//        user.setPhone(form.getPhone());
-//        user.setRole(Role.valueOf(form.getRole()));
-//        LOG.info("updated user: " + user);
-//
-//        return userRepo.save(user);
-//    }
+
 
     /**
      * Gets the List of Roles from Enums

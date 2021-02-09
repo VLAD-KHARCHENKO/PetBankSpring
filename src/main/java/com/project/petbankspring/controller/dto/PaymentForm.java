@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 @Data
 public class PaymentForm {
     @NonNull
-    private String  cardNumber;
-    @NonNull
     private String  debit;
     @NonNull
     private String  credit;
