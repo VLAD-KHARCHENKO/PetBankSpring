@@ -17,11 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 @Controller
 public class InfoPageController {
-    private UserService userService;
-    private UserRepo userRepo;
-    private CardService cardService;
-    private CardRepo cardRepo;
-
+   
 
 
     @GetMapping(value = "/index")

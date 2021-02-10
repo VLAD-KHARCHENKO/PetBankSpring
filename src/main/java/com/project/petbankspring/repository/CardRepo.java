@@ -11,7 +11,7 @@ public interface CardRepo extends PagingAndSortingRepository<Card, Long> {
 //        @Query("select card from Card card left join card.account account left join card.account.user user where card.account.user.id = :userId")
 //        List<Card> findAllByUserId(long userId);
 
-    @Query("select card from Card card where card.account.user.id = :userId and card.account.condition=true and card.condition='ACTIVE'")
+    @Query("select card from Card card where card.account.user.id = :userId and card.account.condition=true")
     List<Card> findAllByUserId(long userId);
 
     @Query("select max(number) from Card")
