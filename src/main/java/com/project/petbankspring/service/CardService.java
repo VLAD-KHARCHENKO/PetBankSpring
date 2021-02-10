@@ -23,8 +23,8 @@ public class CardService {
     private AccountRepo accountRepo;
     private UserService userService;
 
-    public List<Card> findUserCards() {
-        return cardRepo.findAllByUserId(userService.getCurrentUser().getId());
+    public List<Card> findUserCards(long id) {
+        return cardRepo.findAllByUserId(userService.getUserById(id).getId());
     }
 
 
@@ -38,6 +38,10 @@ public class CardService {
                 .account(createAccount(userService.getCurrentUser(), cardNumber))
                 .build());
 
+    }
+    public List<Card> findAllPendingCards(){
+        log.info("Pending-cards");
+        return cardRepo.findAllPendingCards();
     }
 
     public Account createAccount(User user, Long cardNumber) {

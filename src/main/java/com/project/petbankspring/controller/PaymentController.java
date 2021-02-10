@@ -42,10 +42,10 @@ public class PaymentController {
         return "statements";
     }
 
-    @GetMapping(value = "/payments")
-    public String payments(Model model) {
+    @GetMapping(value = "/payments/{id}")
+    public String payments(@PathVariable("id") Long id, Model model) {
         log.info("payments Controller");
-        model.addAttribute("cards", cardService.findUserCards());
+        model.addAttribute("cards", cardService.findUserCards(id));
         model.addAttribute("paymentForm", new PaymentForm());
         return "payments";
     }

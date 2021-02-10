@@ -40,34 +40,34 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Balance</th>
                             <th>Number</th>
-                            <th>isActive</th>
+                            <th>Condition</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <c:forEach items="${accounts}" var="account">
+                        <c:forEach items="${pendingCards}" var="pendingCard">
                             <tr>
-                                <td>${account.id}</td>
-                                <td>${account.balance}</td>
-                                <td>${account.number}</td>
-                                <td>${account.active}</td>
+                                <td>${pendingCard.id}</td>
+                                <td>${pendingCard.number}</td>
+                                <td>${pendingCard.condition}</td>
+                                <td>${pendingCard.account.user.firstName}</td>
+                                <td>${pendingCard.account.user.lastName}</td>
                             </tr>
                         </c:forEach>
 
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <c:import url="footer-part.jsp"/>
+            <!-- End of Footer -->
+
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <c:import url="footer-part.jsp"/>
-        <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
+        <!-- End of Content Wrapper -->
 
     </div>
 </div>
@@ -81,4 +81,4 @@
 
 </body>
 
-</html>
+        </html>

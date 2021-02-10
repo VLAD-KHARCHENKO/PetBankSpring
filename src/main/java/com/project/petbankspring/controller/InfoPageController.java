@@ -50,11 +50,7 @@ public class InfoPageController {
         return "index";
     }
 
-    @GetMapping(value = "/accounts")
-    public String accounts() {
-        log.info("accounts Controller");
-        return "accounts";
-    }
+
 
 
 

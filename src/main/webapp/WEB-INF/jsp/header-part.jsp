@@ -33,7 +33,7 @@
     <security:authorize access="hasRole('ROLE_CUSTOMER')">
 
             <li class="nav-item">
-                <a class="nav-link" href="cards">
+                <a class="nav-link" href="cards/${user.id}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Cards</span></a>
 
@@ -46,7 +46,7 @@
                     </li>
                      -->
             <li class="nav-item">
-                <a class="nav-link" href="payments">
+                <a class="nav-link" href="payments/${user.id}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Payments</span></a>
             </li>
@@ -58,9 +58,9 @@
                     <span>Users</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="accounts">
+                <a class="nav-link" href="pending-cards">
                     <i class="fas fa-money-bill-wave"></i>
-                    <span>Accounts</span></a>
+                    <span>Pending cards</span></a>
             </li>
     </security:authorize>
     <!-- Divider -->
