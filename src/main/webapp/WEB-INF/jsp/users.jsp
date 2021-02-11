@@ -43,12 +43,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Email</th>
-                                    <th>isActive</th>
-                                    <th>Role</th>
-                                    <th>Change</th>
+                                    <th><spring:message code="first.name"/></th>
+                                    <th><spring:message code="last.name"/></th>
+                                    <th><spring:message code="email"/></th>
+                                    <th><spring:message code="condition"/></th>
+                                    <th><spring:message code="role"/></th>
+                                    <th><spring:message code="change"/></th>
                                 </tr>
                                 </thead>
 

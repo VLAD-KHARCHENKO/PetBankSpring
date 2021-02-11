@@ -20,7 +20,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span><spring:message code="dashboard"/></span></a>
     </li>
 
     <!-- Divider -->
@@ -35,7 +35,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="cards/${user.id}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Cards</span></a>
+                    <span><spring:message code="cards"/></span></a>
 
             </li>
         <!--
@@ -48,19 +48,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="payments/${user.id}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Payments</span></a>
+                    <span><spring:message code="payments"/></span></a>
             </li>
     </security:authorize>
     <security:authorize access="hasRole('ROLE_ADMIN')">
             <li class="nav-item">
                 <a class="nav-link" href="users?page=0&size=3">
                     <i class="fas fa-users"></i>
-                    <span>Users</span></a>
+                    <span><spring:message code="users"/></span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="pending-cards">
                     <i class="fas fa-money-bill-wave"></i>
-                    <span>Pending cards</span></a>
+                    <span><spring:message code="pending.cards"/></span></a>
             </li>
     </security:authorize>
     <!-- Divider -->

@@ -53,7 +53,8 @@
                                         <th>debit.number</th>
                                         <th>amount</th>
                                         <th>description</th>
-                                        <th>Status</th>
+                                        <th>Pay</th>
+                                        <th>Delete</th>
 
                                     </tr>
                                     </thead>
@@ -67,9 +68,20 @@
                                             <td>${savedPayment.debit.number}</td>
                                             <td>${savedPayment.amount}</td>
                                             <td>${savedPayment.description}</td>
+
                                             <td>
-                                                <div class="d-grid gap-2 col-6 mx-auto">
-                                                    <button class="btn btn-success" type="submit">Button</button>
+                                                <div class="d-grid gap-2 col-10 mx-auto">
+                                                    <button class="btn btn-success" type="submit">Pay</button>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="d-grid gap-2 col-10 mx-auto ">
+                                                    <form id="${fruitFormId}" action="${deleteUrl}" method="post">
+                                                        <input id="paymentId" name="paymentId" type="hidden" value="${savedPayment.id}"/>
+                                                        <button class="btn btn-success" type="submit">Delete</button>
+                                                    </form>
+
                                                 </div>
 
                                             </td>
