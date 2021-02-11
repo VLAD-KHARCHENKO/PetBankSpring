@@ -3,6 +3,7 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.controller.dto.CardForm;
 import com.project.petbankspring.controller.dto.RegistrationForm;
+import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.model.enums.CardName;
 import com.project.petbankspring.repository.CardRepo;

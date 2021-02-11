@@ -62,7 +62,9 @@
                                         <td>${user.condition}</td>
                                         <td>${user.role}</td>
                                         <td>
-                                            <a href="profile?id=${user.id}" class="search_link">-></a>
+                                            <a href="profile?id=${user.id}" class="btn btn-primary btn-lg "
+                                               tabindex="-1" role="button" aria-disabled="true"><spring:message code="change"/></a>
+
                                         </td>
                                     </tr>
                                 </c:forEach>
