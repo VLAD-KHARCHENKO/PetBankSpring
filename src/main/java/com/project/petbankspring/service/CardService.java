@@ -26,6 +26,9 @@ public class CardService {
     public List<Card> findUserCards(long id) {
         return cardRepo.findAllByUserId(userService.getUserById(id).getId());
     }
+    public List<Card> findAllByUserIdAndCardCondition(long id,CardCondition cardCondition) {
+        return cardRepo.findAllByUserIdAndCardCondition(id, cardCondition);
+    }
 
 
     public Card createCard(CardForm cardForm) {

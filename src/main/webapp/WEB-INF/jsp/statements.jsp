@@ -77,9 +77,11 @@
                                             </td>
                                             <td>
                                                 <div class="d-grid gap-2 col-10 mx-auto ">
-                                                    <form id="${fruitFormId}" action="${deleteUrl}" method="post">
+                                                    <c:url var="deleteUrl" value="/statements/remove"/>
+                                                    <form id="${paymentFormId}" action="${deleteUrl}" method="POST">
                                                         <input id="paymentId" name="paymentId" type="hidden" value="${savedPayment.id}"/>
-                                                        <button class="btn btn-success" type="submit">Delete</button>
+                                                        <input id="cardId" name="cardId" type="hidden" value="${card.id}"/>
+                                                        <button class="btn btn-warning" type="submit">Delete</button>
                                                     </form>
 
                                                 </div>

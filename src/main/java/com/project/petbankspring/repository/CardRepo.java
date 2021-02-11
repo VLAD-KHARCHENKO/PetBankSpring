@@ -1,6 +1,7 @@
 package com.project.petbankspring.repository;
 
 import com.project.petbankspring.model.Card;
+import com.project.petbankspring.model.enums.CardCondition;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -13,6 +14,9 @@ public interface CardRepo extends PagingAndSortingRepository<Card, Long> {
 
     @Query("select card from Card card where card.account.user.id = :userId and card.account.condition=true")
     List<Card> findAllByUserId(long userId);
+
+    @Query("select card from Card card where card.account.user.id = :userId and card.account.condition=:cardCondition")
+    List<Card> findAllByUserIdAndCardCondition(long userId, CardCondition cardCondition);
 
     @Query("select max(number) from Card")
     Long findMaxValueByNumber();

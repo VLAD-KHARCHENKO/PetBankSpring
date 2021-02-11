@@ -3,6 +3,7 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.controller.dto.PaymentForm;
 import com.project.petbankspring.model.Payment;
+import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.service.CardService;
 import com.project.petbankspring.service.PaymentService;
 import lombok.AllArgsConstructor;
@@ -42,7 +43,7 @@ public class PaymentController {
     @GetMapping(value = "/payments/{id}")
     public String payments(@PathVariable("id") Long id, Model model) {
         log.info("payments Controller");
-        model.addAttribute("cards", cardService.findUserCards(id));
+        model.addAttribute("cards", cardService. findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
         model.addAttribute("paymentForm", new PaymentForm());
         return "payments";
     }
@@ -56,12 +57,12 @@ public class PaymentController {
         return "redirect:/statements/" + id;
 
     }
-//        @RequestMapping(value = "payments")
-//        public String delPayment() {
-//            paymentService.createPayment(paymentForm);
-//            log.info("DELETE PAYMENT");
-//
-//            return "redirect:/statements/"+id ;
-//    }
+
+    @RequestMapping(value ="/statements/remove", method = RequestMethod.POST)
+    public String removePayment(@RequestParam("paymentId") long paymentId,@RequestParam("cardId") long cardId){
+        paymentService.removePayment(paymentId);
+        return "redirect:/statements/"+cardId+"?page=0&size=3";
+    }
+
 
 }

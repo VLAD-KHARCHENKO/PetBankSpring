@@ -26,7 +26,7 @@ public class PaymentService {
     private AccountRepo accountRepo;
     private CardRepo cardRepo;
 
-    public Page<Payment> findPaidPaymentsByAccountId(long id,Pageable pageable) {
+    public Page<Payment> findPaidPaymentsByAccountId(long id, Pageable pageable) {
         return paymentRepo.findAllPaidByAccountId(id, pageable);
     }
 
@@ -49,13 +49,17 @@ public class PaymentService {
 
     public Long getIdByCardNumber(String number) {
         Long cardNumber = Long.parseLong(number);
-        Card card =cardRepo.findByNumber(cardNumber);
+        Card card = cardRepo.findByNumber(cardNumber);
         return card.getId();
     }
 
-    public Account getAccountByCardNumber(String number){
+    public Account getAccountByCardNumber(String number) {
         Long cardNumber = Long.parseLong(number);
-        Card card =cardRepo.findByNumber(cardNumber);
+        Card card = cardRepo.findByNumber(cardNumber);
         return card.getAccount();
+    }
+
+    public void removePayment(long paymentId) {
+        paymentRepo.deleteById(paymentId);
     }
 }
