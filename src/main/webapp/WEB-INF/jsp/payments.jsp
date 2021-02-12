@@ -38,7 +38,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xl font-weight-bold text-primary text-uppercase mb-2">
-                                            From the card
+                                            <spring:message code="from.the.card"/>
                                         </div>
 
                                         <form:select path="credit" class="form-control mb-3">
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1"
-                                                   class="form-label">Description</label>
+                                                   class="form-label"><spring:message code="description"/></label>
                                             <form:textarea path="description" class="form-control" id="exampleFormControlTextarea1"
                                                       rows="3"></form:textarea>
                                         </div>
@@ -79,13 +79,13 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xl font-weight-bold text-success text-uppercase mb-2">
-                                            Recipient's card
+                                            <spring:message code="recipient.card"/>
                                         </div>
 
                                         <div class="input-group">
                                             <form:input path="debit" type="text" class="form-control"
                                                    aria-label="Dollar amount (with dot and two decimal places)"/>
-                                            <span class="input-group-text">CARD NUMBER</span>
+                                            <span class="input-group-text"> <spring:message code="card.number"/></span>
                                             <form:errors path="debit"/>
                                         </div>
                                         <br/>
@@ -93,7 +93,7 @@
                                         <p class="card-text">With supporting text below as a natural lead-in to
                                             additional content.</p>
                                         <div class="d-grid gap-2 col-6 mx-auto">
-                                            <button class="btn btn-success" type="submit">Button</button>
+                                            <button class="btn btn-success" type="submit"> <spring:message code="submit"/></button>
                                         </div>
 
                                     </div>

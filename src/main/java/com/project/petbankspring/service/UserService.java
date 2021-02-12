@@ -45,7 +45,7 @@ public class UserService {
     }
 
     /**
-     * Converts data from RegistrationForm to User and stores it into DB
+     * Converts data from RegistrationForm to User into DB
      *
      * @param form
      * @param role

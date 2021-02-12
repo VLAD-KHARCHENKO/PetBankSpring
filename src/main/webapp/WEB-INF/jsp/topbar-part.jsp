@@ -182,7 +182,7 @@
                         <div class="small text-gray-500">Chicken the Dog · 2w</div>
                     </div>
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <a class="dropdown-item text-center small text-gray-500" href="#"><spring:message code="read.more"/></a>
             </div>
         </li>
 
@@ -203,7 +203,7 @@
                 <c:otherwise>
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><spring:message code="login"/></span>
                         <img class="img-profile rounded-circle"
                              src="img/undraw_profile.svg">
                     </a>
@@ -234,11 +234,11 @@
                     <c:otherwise>
                         <a class="dropdown-item" href="login"  >
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Login
+                            <spring:message code="login"/>
                         </a>
-                        <a class="dropdown-item" href="register"  >
+                        <a class="dropdown-item" href="registration"  >
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Registration
+                            <spring:message code="registration"/>
                         </a>
                     </c:otherwise>
                 </c:choose>

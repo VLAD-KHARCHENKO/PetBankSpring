@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class InfoPageController {
    
 
-
     @GetMapping(value = "/index")
     public String index() {
         log.info("index Controller");

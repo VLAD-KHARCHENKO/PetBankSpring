@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,4 +64,22 @@ public class PaymentService {
     public void removePayment(long paymentId) {
         paymentRepo.deleteById(paymentId);
     }
+
+    @Transactional
+    public void submitPayment(long paymentId) {
+        Payment payment = paymentRepo.findById(paymentId).get();
+        payment.setCredit(changeBalance(payment.getCredit(), payment.getAmount().negate()));
+        payment.setDebit(changeBalance(payment.getDebit(), payment.getAmount()));
+        payment.setDate(LocalDateTime.now());
+        payment.setStatus(Status.PAID);
+        paymentRepo.save(payment);
+    }
+
+    public Account changeBalance(Account account, BigDecimal amount) {
+
+        BigDecimal newBalance = account.getBalance().add(amount);
+        account.setBalance(newBalance);
+        return account;
+    }
+
 }

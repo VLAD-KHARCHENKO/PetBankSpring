@@ -35,7 +35,7 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">All users</h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><spring:message code="users"/></h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -79,10 +79,10 @@
                                 <ul class="pagination">
                                     <c:choose>
                                         <c:when test="${currentPage  != 0 }">
-                                            <li class="page-item"><a href="users?page=${currentPage-1}&size=3"><span class="page-link">Prev</span></a></li>
+                                            <li class="page-item"><a href="users?page=${currentPage-1}&size=3"><span class="page-link"><spring:message code="prev"/></span></a></li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                                            <li class="page-item disabled"><span class="page-link"><spring:message code="prev"/></span></li>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:forEach var = "numberPage" begin = "1" end = "${usersPages}">
@@ -97,10 +97,10 @@
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${currentPage < (usersPages-1) }">
-                                            <li class="page-item"><a href="users?page=${currentPage+1}&size=3"><span class="page-link">Next</span></a></li>
+                                            <li class="page-item"><a href="users?page=${currentPage+1}&size=3"><span class="page-link"><spring:message code="next"/></span></a></li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                            <li class="page-item disabled"><span class="page-link"><spring:message code="next"/></span></li>
                                         </c:otherwise>
                                     </c:choose>
                                 </ul>

@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <title>Cards</title>
+    <title><spring:message code="cards"/></title>
     <c:import url="head-part.jsp"/>
 
 </head>
@@ -30,8 +30,8 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Card Page</h1>
+                <!-- Page Heading
+                <h1 class="h3 mb-4 text-gray-800">Card Page</h1>-->
 
             </div>
             <!-- /.container-fluid -->
@@ -40,11 +40,11 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Card name</th>
-                            <th>Number</th>
-                            <th>Balance</th>
-                            <th>Condition</th>
-                            <th>Change</th>
+                            <th><spring:message code="card.name"/></th>
+                            <th><spring:message code="number"/></th>
+                            <th><spring:message code="balance"/></th>
+                            <th><spring:message code="condition"/></th>
+                            <th><spring:message code="change"/></th>
 
                         </tr>
                         </thead>
@@ -60,7 +60,7 @@
                                 <td><a href="profile?id=${user.id}" class="search_link">
                                     <c:choose>
                                         <c:when test="${card.condition == 'ACTIVE'}">
-                                            Blocked the card
+                                            <spring:message code="blocked.card"/>
                                         </c:when>
                                         <c:when test="${card.condition == 'PENDING'}">
 
@@ -107,7 +107,7 @@
                 <form:form class="row g-3" modelAttribute="cardForm" action="cards" method="post">
                     <div class="col-auto">
                         <div class="input-group">
-                            <span class="input-group-text">Create new</span>
+                            <span class="input-group-text"><spring:message code="create.new"/></span>
                             <form:select path="cardName" class="form-control">
                                 <c:forEach items="${cardName}" var="value">
                                     <form:option value="${value}">${value}</form:option>
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">CARD
+                        <button type="submit" class="btn btn-primary mb-3"><spring:message code="card"/>
                             <i class="fas fa-fw  fa-credit-card"></i>
                         </button>
                     </div>

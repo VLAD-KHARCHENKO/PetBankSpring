@@ -29,15 +29,16 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Statements Page</h1>
+                <h1 class="h3 mb-4 text-gray-800">${card.cardName} ${card.number}</h1>
 
-                ${card.cardName}
-                ${card.number}
+
                 <div class="card shadow mb-4">
 
                     <a href="#collapseCardExample" class="d-block card-header py-3 collapsed" data-toggle="collapse"
                        role="button" aria-expanded="false" aria-controls="collapseCardExample">
-                        <h6 class="m-0 font-weight-bold text-primary">Saved Payments</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <spring:message code="saved.payments"/>
+                        </h6>
                     </a>
 
                     <div class="collapse" id="collapseCardExample">
@@ -48,13 +49,27 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>date</th>
-                                        <th>credit.number</th>
-                                        <th>debit.number</th>
-                                        <th>amount</th>
-                                        <th>description</th>
-                                        <th>Pay</th>
-                                        <th>Delete</th>
+                                        <th>
+                                            <spring:message code="date"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="credit.number"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="debit.number"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="amount"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="description"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="pay"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="delete"/>
+                                        </th>
 
                                     </tr>
                                     </thead>
@@ -71,17 +86,31 @@
 
                                             <td>
                                                 <div class="d-grid gap-2 col-10 mx-auto">
-                                                    <button class="btn btn-success" type="submit">Pay</button>
+                                                    <c:url var="payUrl" value="/statements/pay"/>
+                                                    <form id="${paymentId}" action="${payUrl}" method="post">
+                                                        <input id="payId" name="payId" type="hidden"
+                                                               value="${savedPayment.id}"/>
+                                                        <input id="cardId" name="cardId" type="hidden"
+                                                               value="${card.id}"/>
+                                                        <button class="btn btn-success" type="submit">
+                                                            <spring:message code="pay"/>
+                                                        </button>
+                                                    </form>
                                                 </div>
+
 
                                             </td>
                                             <td>
                                                 <div class="d-grid gap-2 col-10 mx-auto ">
                                                     <c:url var="deleteUrl" value="/statements/remove"/>
-                                                    <form id="${paymentFormId}" action="${deleteUrl}" method="POST">
-                                                        <input id="paymentId" name="paymentId" type="hidden" value="${savedPayment.id}"/>
-                                                        <input id="cardId" name="cardId" type="hidden" value="${card.id}"/>
-                                                        <button class="btn btn-warning" type="submit">Delete</button>
+                                                    <form id="${paymentFormId}" action="${deleteUrl}" method="post">
+                                                        <input id="paymentId" name="paymentId" type="hidden"
+                                                               value="${savedPayment.id}"/>
+                                                        <input id="cardId" name="cardId" type="hidden"
+                                                               value="${card.id}"/>
+                                                        <button class="btn btn-warning" type="submit">
+                                                            <spring:message code="delete"/>
+                                                        </button>
                                                     </form>
 
                                                 </div>
@@ -103,7 +132,9 @@
 
                     <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse"
                        role="button" aria-expanded="true" aria-controls="collapseCardExample1">
-                        <h6 class="m-0 font-weight-bold text-primary">Paid payments</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <spring:message code="paid.payments"/>
+                        </h6>
                     </a>
 
                     <div class="collapse show" id="collapseCardExample1">
@@ -113,12 +144,24 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>date</th>
-                                        <th>credit.number</th>
-                                        <th>debit.number</th>
-                                        <th>amount</th>
-                                        <th>description</th>
-                                        <th>Status</th>
+                                        <th>
+                                            <spring:message code="date"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="credit.number"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="debit.number"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="amount"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="description"/>
+                                        </th>
+                                        <th>
+                                            <spring:message code="status"/>
+                                        </th>
 
                                     </tr>
                                     </thead>
@@ -147,34 +190,36 @@
                                     <ul class="pagination">
                                         <c:choose>
                                             <c:when test="${currentPage  != 0 }">
-                                                <li class="page-item"><a href="statements?page=${currentPage-1}&size=3"><span
+                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage-1}&size=3"><span
                                                         class="page-link">Prev</span></a></li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item disabled"><span class="page-link">Prev</span></li>
+                                                <li class="page-item disabled"><span class="page-link"><spring:message
+                                                        code="prev"/></span></li>
                                             </c:otherwise>
                                         </c:choose>
                                         <c:forEach var="numberPage" begin="1" end="${paidPaymentsPages}">
                                             <c:choose>
                                                 <c:when test="${currentPage == (numberPage-1) }">
                                                     <li class="page-item active"><a
-                                                            href="statements?page=${numberPage-1}&size=3"
+                                                            href="statements/${card.id}?page=${numberPage-1}&size=3"
                                                             class="page-link">${numberPage}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="page-item"><a
-                                                            href="statements?page=${numberPage-1}&size=3"
+                                                            href="statements/${card.id}?page=${numberPage-1}&size=3"
                                                             class="page-link">${numberPage}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
                                         <c:choose>
                                             <c:when test="${currentPage < (paidPaymentsPages-1) }">
-                                                <li class="page-item"><a href="statements?page=${currentPage+1}&size=3"><span
-                                                        class="page-link">Next</span></a></li>
+                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage+1}&size=3"><span
+                                                        class="page-link"><spring:message code="next"/></span></a></li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item disabled"><span class="page-link">Next</span></li>
+                                                <li class="page-item disabled"><span class="page-link"><spring:message
+                                                        code="next"/></span></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </ul>

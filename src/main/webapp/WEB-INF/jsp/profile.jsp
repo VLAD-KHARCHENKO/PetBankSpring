@@ -164,7 +164,7 @@
 
                                             <form:input path="userId" type="hidden" name="id" value="${profileUser.id}"/>
 
-                                            <button type="submit" class="btn btn-primary btn-user btn-block">Change
+                                            <button type="submit" class="btn btn-primary btn-user btn-block"><spring:message code="change"/>
                                             </button>
 
 

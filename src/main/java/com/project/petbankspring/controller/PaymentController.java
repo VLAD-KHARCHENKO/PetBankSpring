@@ -64,5 +64,11 @@ public class PaymentController {
         return "redirect:/statements/"+cardId+"?page=0&size=3";
     }
 
+    @RequestMapping(value ="/statements/pay", method = RequestMethod.POST)
+    public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId){
+        paymentService.submitPayment(paymentId);
+        return "redirect:/statements/"+cardId+"?page=0&size=3";
+    }
+
 
 }
