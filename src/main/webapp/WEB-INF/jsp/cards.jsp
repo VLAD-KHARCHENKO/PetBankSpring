@@ -57,10 +57,23 @@
                                 <td>${card.number}</td>
                                 <td>${card.account.balance}</td>
                                 <td>${card.condition}</td>
-                                <td><a href="profile?id=${user.id}" class="search_link">
-                                    <c:choose>
+                                <td><c:choose>
                                         <c:when test="${card.condition == 'ACTIVE'}">
-                                            <spring:message code="blocked.card"/>
+                                            <c:url var="blockedUrl" value="/cards/blocked"/>
+                                            <form id="${cardFormId}" action="${blockedUrl}" method="post">
+                                                <input id="cardId" name="cardId" type="hidden"
+                                                       value="${card.id}"/>
+                                                <input id="userId" name="userId" type="hidden"
+                                                       value="${user.id}"/>
+
+                                                <button class="btn btn-warning" type="submit">
+                                                    <spring:message code="blocked.card"/>
+                                                </button>
+                                            </form>
+
+
+
+
                                         </c:when>
                                         <c:when test="${card.condition == 'PENDING'}">
 

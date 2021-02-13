@@ -61,6 +61,13 @@ public class CardService {
         return ++newNumber;
     }
 
+    public void blockedTheCard(long cardId){
+       Card card =  cardRepo.findById(cardId).get();
+       card.setCondition(CardCondition.BLOCKED);
+       cardRepo.save(card);
+
+    }
+
     public Card findCardByAccountId(Long id) {
         return cardRepo.findByAccountId(id);
     }
