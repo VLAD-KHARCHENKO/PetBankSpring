@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    <title>User accounts</title>
+    <title>Pending cards</title>
     <c:import url="head-part.jsp"/>
 
 </head>
@@ -40,8 +40,19 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th> <spring:message code="number"/></th>
-                            <th> <spring:message code="condition"/></th>
+                            <th>
+                                <spring:message code="number"/>
+                            </th>
+                            <th>
+                                <spring:message code="condition"/>
+                            </th>
+                            <th>
+                                <spring:message code="first.name"/>
+                            </th>
+                            <th>
+                                <spring:message code="last.name"/>
+                            </th>
+
                         </tr>
                         </thead>
 
@@ -50,9 +61,18 @@
                             <tr>
                                 <td>${pendingCard.id}</td>
                                 <td>${pendingCard.number}</td>
-                                <td>${pendingCard.condition}</td>
                                 <td>${pendingCard.account.user.firstName}</td>
                                 <td>${pendingCard.account.user.lastName}</td>
+                                <td>
+                                    <c:url var="activatedUrl" value="/pending-cards/activated"/>
+                                    <form id="${cardFormId}" action="${activatedUrl}" method="post">
+                                        <input id="cardId" name="cardId" type="hidden"
+                                               value="${pendingCard.id}"/>
+                                        <button class="btn btn-success" type="submit">
+                                            <spring:message code="activate"/>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
 

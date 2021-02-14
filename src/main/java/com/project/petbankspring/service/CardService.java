@@ -19,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CardService {
 
+
     private CardRepo cardRepo;
     private AccountRepo accountRepo;
     private UserService userService;
@@ -62,10 +63,21 @@ public class CardService {
     }
 
     public void blockedTheCard(long cardId){
-       Card card =  cardRepo.findById(cardId).get();
-       card.setCondition(CardCondition.BLOCKED);
-       cardRepo.save(card);
+        Card card =  cardRepo.findById(cardId).get();
+        card.setCondition(CardCondition.BLOCKED);
+        cardRepo.save(card);
+    }
 
+    public void activatedTheCard(long cardId){
+        Card card =  cardRepo.findById(cardId).get();
+        card.setCondition(CardCondition.ACTIVE);
+        cardRepo.save(card);
+    }
+
+    public void pendedTheCard(long cardId){
+        Card card =  cardRepo.findById(cardId).get();
+        card.setCondition(CardCondition.PENDING);
+        cardRepo.save(card);
     }
 
     public Card findCardByAccountId(Long id) {

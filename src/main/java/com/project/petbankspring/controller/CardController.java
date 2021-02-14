@@ -56,4 +56,22 @@ public class CardController {
         return "redirect:/cards/"+userId;
     }
 
+    @RequestMapping(value ="/pending-cards/activated", method = RequestMethod.POST)
+    public String activatedPendingCard(@RequestParam("cardId") long cardId){
+        cardService.activatedTheCard(cardId);
+        return "redirect:/pending-cards/";
+    }
+
+    @RequestMapping(value ="/cards/activated", method = RequestMethod.POST)
+    public String activatedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId){
+        cardService.activatedTheCard(cardId);
+        return "redirect:/cards/"+userId;
+    }
+
+    @RequestMapping(value ="/cards/pending", method = RequestMethod.POST)
+    public String pendedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId){
+        cardService.pendedTheCard(cardId);
+        return "redirect:/cards/"+userId;
+    }
+
 }
