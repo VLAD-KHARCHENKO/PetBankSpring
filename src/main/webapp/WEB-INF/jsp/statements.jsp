@@ -29,7 +29,8 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">${card.cardName} ${card.number}</h1>
+                <h1 class="h3 mb-4 text-gray-800"> <spring:message code="card.small"/>:
+                    ${card.cardName}  <spring:message code="number.small"/>: ${card.number}  <spring:message code="balance"/>: ${card.account.balance} <spring:message code="condition"/>: ${card.condition}</h1>
 
 
                 <div class="card shadow mb-4">
@@ -85,6 +86,8 @@
                                             <td>${savedPayment.description}</td>
 
                                             <td>
+                                                <c:choose>
+                                                <c:when test="${ card.condition == 'ACTIVE'}">
                                                 <div class="d-grid gap-2 col-10 mx-auto">
                                                     <c:url var="payUrl" value="/statements/pay"/>
                                                     <form id="${paymentId}" action="${payUrl}" method="post">
@@ -97,7 +100,11 @@
                                                         </button>
                                                     </form>
                                                 </div>
+                                                </c:when>
+                                                    <c:otherwise>
 
+                                                    </c:otherwise>
+                                                </c:choose>
 
                                             </td>
                                             <td>
@@ -159,26 +166,37 @@
                                         <th>
                                             <spring:message code="description"/>
                                         </th>
-                                        <th>
-                                            <spring:message code="status"/>
-                                        </th>
+
 
                                     </tr>
                                     </thead>
 
                                     <tbody>
                                     <c:forEach items="${paidPayments}" var="paidPayment">
-                                        <tr>
+                                        <c:choose>
+                                        <c:when test="${paidPayment.debit.number == card.account.number}">
+                                       <tr class="table-success">
                                             <td>${paidPayment.id}</td>
                                             <td>${paidPayment.date}</td>
                                             <td>${paidPayment.credit.number}</td>
-                                            <td>${paidPayment.debit.number}</td>
+                                            <td></td>
                                             <td>${paidPayment.amount}</td>
                                             <td>${paidPayment.description}</td>
-                                            <td>${paidPayment.status}</td>
-
 
                                         </tr>
+                                        </c:when>
+                                            <c:otherwise>
+                                                <tr class="table-danger">
+                                                    <td>${paidPayment.id}</td>
+                                                    <td>${paidPayment.date}</td>
+                                                    <td></td>
+                                                    <td>${paidPayment.debit.number}</td>
+                                                    <td>${paidPayment.amount}</td>
+                                                    <td>${paidPayment.description}</td>
+
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:forEach>
 
                                     </tbody>

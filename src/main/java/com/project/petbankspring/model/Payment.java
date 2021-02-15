@@ -2,6 +2,7 @@ package com.project.petbankspring.model;
 
 import com.project.petbankspring.model.enums.Status;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "payment")
 public class Payment extends BaseEntity {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NonNull
     @Column(name = "date")
     private LocalDateTime date;

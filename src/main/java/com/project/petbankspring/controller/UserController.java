@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -48,9 +50,14 @@ public class UserController {
     public String users(Model model, Pageable pageable) {
         log.info("users Controller");
         Page<User> users = userService.findAll(pageable);
+
         model.addAttribute("users", users.getContent());
         model.addAttribute("usersPages", users.getTotalPages());
         model.addAttribute("currentPage", pageable.getPageNumber());
+        Sort sort = pageable.getSort();
+        model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending()? ",desc" : "");
+        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending()? ",desc" : "");
+        model.addAttribute("sort", sort.iterator().next().getProperty());
 
         return "users";
     }

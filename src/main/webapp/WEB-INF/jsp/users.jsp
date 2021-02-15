@@ -43,9 +43,9 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th><spring:message code="first.name"/></th>
-                                    <th><spring:message code="last.name"/></th>
-                                    <th><spring:message code="email"/></th>
+                                    <th><a href="users?page=${currentPage}&size=3&sort=firstName${direction}" class="search_link"><spring:message code="first.name"/></a></th>
+                                    <th><a href="users?page=${currentPage}&size=3&sort=lastName${direction}" class="search_link"><spring:message code="last.name"/></th>
+                                    <th><a href="users?page=${currentPage}&size=3&sort=login${direction}" class="search_link"><spring:message code="email"/></th>
                                     <th><spring:message code="condition"/></th>
                                     <th><spring:message code="role"/></th>
                                     <th><spring:message code="change"/></th>
@@ -79,7 +79,7 @@
                                 <ul class="pagination">
                                     <c:choose>
                                         <c:when test="${currentPage  != 0 }">
-                                            <li class="page-item"><a href="users?page=${currentPage-1}&size=3"><span class="page-link"><spring:message code="prev"/></span></a></li>
+                                            <li class="page-item"><a href="users?page=${currentPage-1}&size=3&sort=${sort}${currentDirection}"><span class="page-link"><spring:message code="prev"/></span></a></li>
                                         </c:when>
                                         <c:otherwise>
                                             <li class="page-item disabled"><span class="page-link"><spring:message code="prev"/></span></li>
@@ -88,16 +88,16 @@
                                     <c:forEach var = "numberPage" begin = "1" end = "${usersPages}">
                                         <c:choose>
                                             <c:when test="${currentPage == (numberPage-1) }">
-                                                <li class="page-item active"><a href="users?page=${numberPage-1}&size=3" class="page-link">${numberPage}</a></li>
+                                                <li class="page-item active"><a href="users?page=${numberPage-1}&size=3&sort=${sort}${currentDirection}" class="page-link">${numberPage}</a></li>
                                             </c:when>
                                             <c:otherwise>
-                                                <li class="page-item"><a href="users?page=${numberPage-1}&size=3" class="page-link">${numberPage}</a></li>
+                                                <li class="page-item"><a href="users?page=${numberPage-1}&size=3&sort=${sort}${currentDirection}" class="page-link">${numberPage}</a></li>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
                                     <c:choose>
                                         <c:when test="${currentPage < (usersPages-1) }">
-                                            <li class="page-item"><a href="users?page=${currentPage+1}&size=3"><span class="page-link"><spring:message code="next"/></span></a></li>
+                                            <li class="page-item"><a href="users?page=${currentPage+1}&size=3&sort=${sort}${currentDirection}"><span class="page-link"><spring:message code="next"/></span></a></li>
                                         </c:when>
                                         <c:otherwise>
                                             <li class="page-item disabled"><span class="page-link"><spring:message code="next"/></span></li>

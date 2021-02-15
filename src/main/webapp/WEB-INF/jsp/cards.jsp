@@ -46,10 +46,12 @@
                                 <spring:message code="card.name"/>
                             </th>
                             <th>
-                                <spring:message code="number"/>
+                                <a href="cards/${user.id}?sort=number${direction}" class="search_link"> <spring:message code="number"/></a>
+
                             </th>
                             <th>
-                                <spring:message code="balance"/>
+                                <a href="cards/${user.id}?sort=account.balance${direction}" class="search_link">  <spring:message code="balance"/></a>
+
                             </th>
                             <th>
                                 <spring:message code="condition"/>
@@ -198,6 +200,32 @@
                 </div>
             </form:form>
 
+            <form:form class="row g-3" modelAttribute="replenishmentForm" action="replenishmentCard" method="post">
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text"><spring:message code="create.new"/></span>
+                        <form:select path="cardNumber" class="form-control">
+                            <c:forEach items="${activeCards}" var="activeCard">
+                                <form:option value="${activeCard.number}">${activeCard.cardName} - ${activeCard.number} -
+                                    ${activeCard.account.balance}$
+                                </form:option>
+
+                            </c:forEach>
+                        </form:select>
+                        <form:errors path="cardNumber"/>
+                        <form:input path="amount" class="form-control"
+                                    aria-label="Dollar amount (with dot and two decimal places)"/>
+                        <span class="input-group-text">$</span>
+                        <span class="input-group-text">0.00</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">
+                        <spring:message code="card"/>
+                        <i class="fas fa-fw  fa-credit-card"></i>
+                    </button>
+                </div>
+            </form:form>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 package com.project.petbankspring.service;
 
 import com.project.petbankspring.controller.dto.CardForm;
+import com.project.petbankspring.controller.dto.ReplenishmentForm;
 import com.project.petbankspring.model.Account;
 import com.project.petbankspring.model.Card;
 import com.project.petbankspring.model.User;
@@ -9,7 +10,9 @@ import com.project.petbankspring.repository.AccountRepo;
 import com.project.petbankspring.repository.CardRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,9 +26,10 @@ public class CardService {
     private CardRepo cardRepo;
     private AccountRepo accountRepo;
     private UserService userService;
+    private PaymentService paymentService;
 
-    public List<Card> findUserCards(long id) {
-        return cardRepo.findAllByUserId(userService.getUserById(id).getId());
+    public List<Card> findUserCards(long id, Pageable pageable) {
+        return cardRepo.findAllByUserId(userService.getUserById(id).getId(),pageable);
     }
     public List<Card> findAllByUserIdAndCardCondition(long id,CardCondition cardCondition) {
         return cardRepo.findAllByUserIdAndCardCondition(id, cardCondition);
@@ -84,4 +88,10 @@ public class CardService {
         return cardRepo.findByAccountId(id);
     }
 
+    public void replenishmentCard(ReplenishmentForm replenishmentForm) {
+        Card card=cardRepo.findByNumber(replenishmentForm.getCardNumber());
+        Account account=paymentService.changeBalance(card.getAccount(),replenishmentForm.getAmount());
+        card.setAccount(account);
+        cardRepo.save(card);
+    }
 }

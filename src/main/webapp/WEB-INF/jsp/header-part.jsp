@@ -53,7 +53,7 @@
     </security:authorize>
     <security:authorize access="hasRole('ROLE_ADMIN')">
             <li class="nav-item">
-                <a class="nav-link" href="users?page=0&size=3">
+                <a class="nav-link" href="users?page=0&size=3&sort=id">
                     <i class="fas fa-users"></i>
                     <span><spring:message code="users"/></span></a>
             </li>

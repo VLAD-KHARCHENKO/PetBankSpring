@@ -45,7 +45,7 @@ public class CustomExceptionHandler {
 
         view.addObject("exception", errorResponse);
 
-        return "404";
+        return "404-error";
     }
 
     // 403 Access Denied

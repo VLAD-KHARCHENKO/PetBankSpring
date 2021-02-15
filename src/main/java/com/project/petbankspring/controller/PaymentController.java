@@ -12,7 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @AllArgsConstructor
@@ -28,13 +31,13 @@ public class PaymentController {
         log.info("statements Controller");
         Page<Payment> statements = paymentService.findPaidPaymentsByAccountId(id, pageable);
         model.addAttribute("paidPayments", statements.getContent());
-       model.addAttribute("paidPaymentsPages", statements.getTotalPages());
+        model.addAttribute("paidPaymentsPages", statements.getTotalPages());
         model.addAttribute("currentPage", pageable.getPageNumber());
 
         //    model.addAttribute("paidPayments", paymentService.findPaidPaymentsByAccountId(id));
 
 
-       model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
+        model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
         model.addAttribute("card", cardService.findCardByAccountId(id));
 
         return "statements";
@@ -43,14 +46,23 @@ public class PaymentController {
     @GetMapping(value = "/payments/{id}")
     public String payments(@PathVariable("id") Long id, Model model) {
         log.info("payments Controller");
-        model.addAttribute("cards", cardService. findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
+        model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
         model.addAttribute("paymentForm", new PaymentForm());
         return "payments";
     }
 
     @PostMapping(value = "payments")
-    public String addPayment(@ModelAttribute("paymentForm") PaymentForm paymentForm) {
-        paymentService.createPayment(paymentForm);
+    public String addPayment(@Valid @ModelAttribute("paymentForm") BindingResult error, PaymentForm paymentForm, Model model) {
+        if (error.hasErrors()) {
+            return "payments";
+        }
+        Payment payment = paymentService.createPayment(paymentForm);
+        if (payment == null) {
+            error.rejectValue("description", "Error");
+            model.addAttribute("notification", "Message must be longer than 10 characters");
+            return "payments";
+        }
+
         log.info("CREATE PAYMENT");
         Long id = paymentService.getIdByCardNumber(paymentForm.getCredit());
         log.info("CardId=" + id);
@@ -58,16 +70,16 @@ public class PaymentController {
 
     }
 
-    @RequestMapping(value ="/statements/remove", method = RequestMethod.POST)
-    public String removePayment(@RequestParam("paymentId") long paymentId,@RequestParam("cardId") long cardId){
+    @RequestMapping(value = "/statements/remove", method = RequestMethod.POST)
+    public String removePayment(@RequestParam("paymentId") long paymentId, @RequestParam("cardId") long cardId) {
         paymentService.removePayment(paymentId);
-        return "redirect:/statements/"+cardId+"?page=0&size=3";
+        return "redirect:/statements/" + cardId + "?page=0&size=3";
     }
 
-    @RequestMapping(value ="/statements/pay", method = RequestMethod.POST)
-    public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId){
+    @RequestMapping(value = "/statements/pay", method = RequestMethod.POST)
+    public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId) {
         paymentService.submitPayment(paymentId);
-        return "redirect:/statements/"+cardId+"?page=0&size=3";
+        return "redirect:/statements/" + cardId + "?page=0&size=3";
     }
 
 

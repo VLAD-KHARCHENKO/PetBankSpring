@@ -27,6 +27,7 @@ public class PaymentService {
     private PaymentRepo paymentRepo;
     private AccountRepo accountRepo;
     private CardRepo cardRepo;
+    private static final int MASSAGE_LIGHT=5;
 
     public Page<Payment> findPaidPaymentsByAccountId(long id, Pageable pageable) {
         return paymentRepo.findAllPaidByAccountId(id, pageable);
@@ -36,16 +37,24 @@ public class PaymentService {
         return paymentRepo.findAllSaveByAccountId(id);
     }
 
-    public void createPayment(PaymentForm paymentForm) {
+    public Payment createPayment(PaymentForm paymentForm) {
+        if (smallMessage(paymentForm.getDescription())) {
+            return null;
+        }
 
-        paymentRepo.save(Payment.builder()
-                .date(LocalDateTime.now())
-                .debit(getAccountByCardNumber(paymentForm.getDebit()))
-                .credit(getAccountByCardNumber(paymentForm.getCredit()))
-                .description(paymentForm.getDescription())
-                .amount(paymentForm.getAmount())
-                .status(Status.SAVE)
-                .build());
+        return paymentRepo.save(Payment.builder()
+                        .date(LocalDateTime.now())
+                        .debit(getAccountByCardNumber(paymentForm.getDebit()))
+                        .credit(getAccountByCardNumber(paymentForm.getCredit()))
+                        .description(paymentForm.getDescription())
+                        .amount(paymentForm.getAmount())
+                        .status(Status.SAVE)
+                        .build());
+
+    }
+
+    private boolean smallMessage(String message) {
+        return message.length() < MASSAGE_LIGHT;
     }
 
 

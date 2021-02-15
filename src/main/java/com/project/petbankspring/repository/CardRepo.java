@@ -2,8 +2,10 @@ package com.project.petbankspring.repository;
 
 import com.project.petbankspring.model.Card;
 import com.project.petbankspring.model.enums.CardCondition;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public interface CardRepo extends PagingAndSortingRepository<Card, Long> {
 //        List<Card> findAllByUserId(long userId);
 
     @Query("select card from Card card where card.account.user.id = :userId and card.account.condition=true")
-    List<Card> findAllByUserId(long userId);
+    List<Card> findAllByUserId(long userId, Pageable pageable);
 
     @Query("select card from Card card where card.account.user.id = :userId and card.account.condition='true' and card.condition=:cardCondition")
     List<Card> findAllByUserIdAndCardCondition(long userId, CardCondition cardCondition);
