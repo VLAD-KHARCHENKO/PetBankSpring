@@ -33,7 +33,7 @@
     <security:authorize access="hasRole('ROLE_CUSTOMER')">
 
             <li class="nav-item">
-                <a class="nav-link" href="cards/${user.id}">
+                <a class="nav-link" href="cards/${user.id}?sort=id">
                     <i class="fas fa-fw fa-table"></i>
                     <span><spring:message code="cards"/></span></a>
 

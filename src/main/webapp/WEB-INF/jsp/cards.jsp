@@ -43,7 +43,8 @@
                         <thead>
                         <tr>
                             <th>
-                                <spring:message code="card.name"/>
+                                <a href="cards/${user.id}?sort=cardName${direction}" class="search_link">  <spring:message code="card.name"/></a>
+
                             </th>
                             <th>
                                 <a href="cards/${user.id}?sort=number${direction}" class="search_link"> <spring:message code="number"/></a>
@@ -54,7 +55,8 @@
 
                             </th>
                             <th>
-                                <spring:message code="condition"/>
+                                <a href="cards/${user.id}?sort=condition${direction}" class="search_link">  <spring:message code="condition"/></a>
+
                             </th>
                             <th>
                                 <spring:message code="change"/>
@@ -66,7 +68,7 @@
                         <tbody>
                         <c:forEach items="${cards}" var="card">
                             <tr>
-                                <td><a href="statements/${card.account.id}?page=0&size=3" class="search_link">${card.cardName}</a>
+                                <td><a href="statements/${card.account.id}?page=0&size=3&sort=id" class="search_link">${card.cardName}</a>
                                 </td>
                                 <td>${card.number}</td>
                                 <td>${card.account.balance}</td>

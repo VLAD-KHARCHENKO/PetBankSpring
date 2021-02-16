@@ -3,19 +3,25 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.controller.dto.PaymentForm;
 import com.project.petbankspring.model.Payment;
+import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.service.CardService;
 import com.project.petbankspring.service.PaymentService;
+import com.project.petbankspring.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+
+
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,7 +30,7 @@ public class PaymentController {
 
     private PaymentService paymentService;
     private CardService cardService;
-
+private UserService userService;
 
     @GetMapping(value = "/statements/{id}")
     public String statements(@PathVariable("id") Long id, Model model, Pageable pageable) {
@@ -39,6 +45,10 @@ public class PaymentController {
 
         model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
         model.addAttribute("card", cardService.findCardByAccountId(id));
+        Sort sort = pageable.getSort();
+        model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending()? ",desc" : "");
+        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending()? ",desc" : "");
+        model.addAttribute("sort", sort.iterator().next().getProperty());
 
         return "statements";
     }
@@ -52,34 +62,37 @@ public class PaymentController {
     }
 
     @PostMapping(value = "payments")
-    public String addPayment(@Valid @ModelAttribute("paymentForm") BindingResult error, PaymentForm paymentForm, Model model) {
+    public String addPayment(@Valid @ModelAttribute("paymentForm") PaymentForm paymentForm, BindingResult error,  Model model) {
+        User user = userService.getCurrentUser();
+        log.info("User id = "+user.getId());
         if (error.hasErrors()) {
             return "payments";
         }
         Payment payment = paymentService.createPayment(paymentForm);
         if (payment == null) {
-            error.rejectValue("description", "Error");
+            error.rejectValue("description", "error");
             model.addAttribute("notification", "Message must be longer than 10 characters");
+            model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(user.getId(), CardCondition.ACTIVE));
             return "payments";
         }
 
         log.info("CREATE PAYMENT");
         Long id = paymentService.getIdByCardNumber(paymentForm.getCredit());
         log.info("CardId=" + id);
-        return "redirect:/statements/" + id;
+        return "redirect:/statements/" + id+"?page=0&size=3&sort=id";
 
     }
 
     @RequestMapping(value = "/statements/remove", method = RequestMethod.POST)
     public String removePayment(@RequestParam("paymentId") long paymentId, @RequestParam("cardId") long cardId) {
         paymentService.removePayment(paymentId);
-        return "redirect:/statements/" + cardId + "?page=0&size=3";
+        return "redirect:/statements/" + cardId + "?page=0&size=3&sort=id";
     }
 
     @RequestMapping(value = "/statements/pay", method = RequestMethod.POST)
     public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId) {
         paymentService.submitPayment(paymentId);
-        return "redirect:/statements/" + cardId + "?page=0&size=3";
+        return "redirect:/statements/" + cardId + "?page=0&size=3&sort=id";
     }
 
 

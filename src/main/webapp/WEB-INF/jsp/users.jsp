@@ -44,8 +44,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th><a href="users?page=${currentPage}&size=3&sort=firstName${direction}" class="search_link"><spring:message code="first.name"/></a></th>
-                                    <th><a href="users?page=${currentPage}&size=3&sort=lastName${direction}" class="search_link"><spring:message code="last.name"/></th>
-                                    <th><a href="users?page=${currentPage}&size=3&sort=login${direction}" class="search_link"><spring:message code="email"/></th>
+                                    <th><a href="users?page=${currentPage}&size=3&sort=lastName${direction}" class="search_link"><spring:message code="last.name"/></a></th>
+                                    <th><a href="users?page=${currentPage}&size=3&sort=login${direction}" class="search_link"><spring:message code="email"/></a></th>
                                     <th><spring:message code="condition"/></th>
                                     <th><spring:message code="role"/></th>
                                     <th><spring:message code="change"/></th>
@@ -56,7 +56,7 @@
                                 <c:forEach items="${users}" var="user">
                                     <tr>
                                         <td>${user.id}</td>
-                                        <td><a href="cards/${user.id}" class="search_link">${user.firstName}</a></td>
+                                        <td><a href="cards/${user.id}?sort=id" class="search_link">${user.firstName}</a></td>
                                         <td>${user.lastName}</td>
                                         <td>${user.login}</td>
                                         <td>${user.condition}</td>

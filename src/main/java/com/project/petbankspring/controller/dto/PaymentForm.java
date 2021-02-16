@@ -1,24 +1,27 @@
 package com.project.petbankspring.controller.dto;
 
 import com.project.petbankspring.model.Account;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class PaymentForm {
-    @NonNull
+    @NotNull
     private String  debit;
-    @NonNull
+    @NotNull
     private String  credit;
-    @NonNull
+    @NotNull
     private BigDecimal amount;
-    @NonNull
+    @NotNull
     private String description;
 
-
     public PaymentForm() {
-
     }
 }

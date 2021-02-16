@@ -150,9 +150,9 @@
                                 <table class="table table-bordered" id="dataTable1 " width="100%" cellspacing="0">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th> <a  href="statements/${card.id}?page=${currentPage}&size=3&sort=id${direction}" class="search_link">ID</a></th>
                                         <th>
-                                            <spring:message code="date"/>
+                                            <a  href="statements/${card.id}?page=${currentPage}&size=3&sort=date${direction}" class="search_link"><spring:message code="date"/></a>
                                         </th>
                                         <th>
                                             <spring:message code="credit.number"/>
@@ -208,7 +208,7 @@
                                     <ul class="pagination">
                                         <c:choose>
                                             <c:when test="${currentPage  != 0 }">
-                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage-1}&size=3"><span
+                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage-1}&size=3&sort=${sort}${currentDirection}"><span
                                                         class="page-link">Prev</span></a></li>
                                             </c:when>
                                             <c:otherwise>
@@ -220,19 +220,19 @@
                                             <c:choose>
                                                 <c:when test="${currentPage == (numberPage-1) }">
                                                     <li class="page-item active"><a
-                                                            href="statements/${card.id}?page=${numberPage-1}&size=3"
+                                                            href="statements/${card.id}?page=${numberPage-1}&size=3&sort=${sort}${currentDirection}"
                                                             class="page-link">${numberPage}</a></li>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <li class="page-item"><a
-                                                            href="statements/${card.id}?page=${numberPage-1}&size=3"
+                                                            href="statements/${card.id}?page=${numberPage-1}&size=3&sort=${sort}${currentDirection}"
                                                             class="page-link">${numberPage}</a></li>
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:forEach>
                                         <c:choose>
                                             <c:when test="${currentPage < (paidPaymentsPages-1) }">
-                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage+1}&size=3"><span
+                                                <li class="page-item"><a href="statements/${card.id}?page=${currentPage+1}&size=3&sort=${sort}${currentDirection}"><span
                                                         class="page-link"><spring:message code="next"/></span></a></li>
                                             </c:when>
                                             <c:otherwise>
