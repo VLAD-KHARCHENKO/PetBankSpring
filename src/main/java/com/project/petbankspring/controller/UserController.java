@@ -49,6 +49,7 @@ public class UserController {
     @GetMapping(value = "users")
     public String users(Model model, Pageable pageable) {
         log.info("users Controller");
+
         Page<User> users = userService.findAll(pageable);
 
         model.addAttribute("users", users.getContent());

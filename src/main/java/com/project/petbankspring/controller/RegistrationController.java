@@ -46,6 +46,7 @@ public class RegistrationController {
     public String registerUser(@Valid @ModelAttribute("registrationForm") RegistrationForm registrationForm, BindingResult error) {
         log.info("Form {}", registrationForm);
         if (error.hasErrors()) {
+
             return "registration";
         }
 

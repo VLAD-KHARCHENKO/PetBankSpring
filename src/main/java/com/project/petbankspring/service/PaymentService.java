@@ -27,7 +27,6 @@ public class PaymentService {
     private PaymentRepo paymentRepo;
     private AccountRepo accountRepo;
     private CardRepo cardRepo;
-    private static final int MASSAGE_LIGHT=5;
 
     public Page<Payment> findPaidPaymentsByAccountId(long id, Pageable pageable) {
         return paymentRepo.findAllPaidByAccountId(id, pageable);
@@ -38,9 +37,6 @@ public class PaymentService {
     }
 
     public Payment createPayment(PaymentForm paymentForm) {
-        if (smallMessage(paymentForm.getDescription())) {
-            return null;
-        }
 
         return paymentRepo.save(Payment.builder()
                         .date(LocalDateTime.now())
@@ -51,10 +47,6 @@ public class PaymentService {
                         .status(Status.SAVE)
                         .build());
 
-    }
-
-    private boolean smallMessage(String message) {
-        return message.length() < MASSAGE_LIGHT;
     }
 
 

@@ -31,7 +31,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <form:input  path="firstName" type="text" name="firstName" class="form-control form-control-user" id="exampleFirstName"
                                             placeholder="First Name"/>
-                                        <form:errors path="firstName"/>
+                                        <form:errors path="firstName" class="text-danger"/>
                                     </div>
                                     <div class="col-sm-6">
                                         <form:input  path="lastName" type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
@@ -53,7 +53,7 @@
                                     <div class="col-sm-6">
                                         <form:input path="password_confirm" type="password" name="password" class="form-control form-control-user"
                                             id="exampleRepeatPassword" placeholder="Repeat Password"/>
-                                        <form:errors path="password_confirm"/>
+                                        <form:errors path="password_confirm" class="text-danger"/>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>

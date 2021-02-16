@@ -31,11 +31,7 @@
         <c:import url="topbar-part.jsp"/>
 
         <!-- Begin Page Content -->
-        <div class="range range-sm-center"><h5>
-            <c:if test="${not empty notification}">
-                <c:out value ="${notification}" />
-            </c:if>
-        </h5></div>
+
         <div class="container-fluid">
             <form:form class="row g-3" action="payments" method="post"
                        modelAttribute="paymentForm">
@@ -71,7 +67,7 @@
                                                    class="form-label"><spring:message code="description"/></label>
                                             <form:textarea path="description" class="form-control" id="exampleFormControlTextarea1"
                                                       rows="3"></form:textarea>
-                                            <form:errors path="description"/>
+                                            <form:errors path="description" class="text-danger"/>
                                         </div>
 
                                     </div>

@@ -11,8 +11,6 @@ import com.project.petbankspring.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -65,16 +63,14 @@ private UserService userService;
     public String addPayment(@Valid @ModelAttribute("paymentForm") PaymentForm paymentForm, BindingResult error,  Model model) {
         User user = userService.getCurrentUser();
         log.info("User id = "+user.getId());
+
         if (error.hasErrors()) {
-            return "payments";
-        }
-        Payment payment = paymentService.createPayment(paymentForm);
-        if (payment == null) {
-            error.rejectValue("description", "error");
-            model.addAttribute("notification", "Message must be longer than 10 characters");
             model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(user.getId(), CardCondition.ACTIVE));
             return "payments";
         }
+
+       paymentService.createPayment(paymentForm);
+
 
         log.info("CREATE PAYMENT");
         Long id = paymentService.getIdByCardNumber(paymentForm.getCredit());

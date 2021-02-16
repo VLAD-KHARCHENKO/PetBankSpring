@@ -20,9 +20,17 @@ public class RegistrationFormValidator implements Validator {
         if (isPasswordNotMatch(form)) {
             errors.rejectValue("password_confirm", "registration.password.not.match");
         }
+        if (isFirstNameNotMatch(form)) {
+            errors.rejectValue("firstName", "firstName");
+        }
     }
 
     private boolean isPasswordNotMatch(RegistrationForm form) {
         return !form.getPassword().equals(form.getPassword_confirm());
+    }
+
+    private boolean isFirstNameNotMatch(RegistrationForm form) {
+        int lengthName = form.getFirstName().length();
+        return !(lengthName > 3 && lengthName < 30);
     }
 }

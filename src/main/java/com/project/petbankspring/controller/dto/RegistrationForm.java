@@ -2,6 +2,7 @@ package com.project.petbankspring.controller.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,6 +15,7 @@ public class RegistrationForm {
     private String lastName;
 
     @NotNull
+    @Email
     private String login;
     @NotNull
     private String password;
