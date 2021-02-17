@@ -3,6 +3,7 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.controller.dto.ProfileForm;
 import com.project.petbankspring.model.User;
+import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -29,8 +32,14 @@ public class UserController {
 
 
     @GetMapping(value = "profile")
-    public String profile(@RequestParam(value = "id") Long id, Model model) {
+    public String profile(@Valid @RequestParam(value = "id") Long id, ProfileForm profileForm, BindingResult error, Model model) {
         log.info("Get profile Page");
+
+       if (error.hasErrors()) {
+
+           return "profile";
+       }
+       
         model.addAttribute("profileUser", userService.getUserById(id));
 //        model.addAttribute("currentUser", userService.getCurrentUser());
         log.info("addAttribute currentUser" + userService.getCurrentUser());

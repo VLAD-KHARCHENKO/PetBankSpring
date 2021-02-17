@@ -92,7 +92,7 @@
                                             <form:input path="debit" type="text" class="form-control"
                                                    aria-label="Dollar amount (with dot and two decimal places)"/>
                                             <span class="input-group-text"> <spring:message code="card.number"/></span>
-                                            <form:errors path="debit"/>
+                                            <form:errors path="debit" class="text-danger"/>
                                         </div>
                                         <br/>
                                         <h5 class="card-title">Special title treatment</h5>

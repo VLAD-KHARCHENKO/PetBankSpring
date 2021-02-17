@@ -3,6 +3,7 @@ package com.project.petbankspring.controller;
 
 import com.project.petbankspring.controller.dto.CardForm;
 import com.project.petbankspring.controller.dto.ReplenishmentForm;
+import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.model.enums.CardName;
 import com.project.petbankspring.service.CardService;
@@ -13,8 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @Slf4j
@@ -32,10 +35,10 @@ public class CardController {
         model.addAttribute("cards", cardService.findUserCards(id, pageable));
         model.addAttribute("cardName", CardName.values());
         model.addAttribute("cardForm", new CardForm());
-        model.addAttribute("activeCards", cardService. findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
+        model.addAttribute("activeCards", cardService.findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
         model.addAttribute("replenishmentForm", new ReplenishmentForm());
         Sort sort = pageable.getSort();
-        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending()? ",desc" : "");
+        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
         model.addAttribute("sort", sort.iterator().next().getProperty());
         return "cards";
 
@@ -52,46 +55,58 @@ public class CardController {
 
     }
 
-    @PostMapping(value = "replenishmentCard")
-    public String replenishmentCard(@ModelAttribute("replenishmentForm") ReplenishmentForm replenishmentForm) {
+    @PostMapping(value = "cards")
+    public String replenishmentCard(@Valid @ModelAttribute("replenishmentForm") ReplenishmentForm replenishmentForm,
+                                    BindingResult error, Model model, Pageable pageable) {
+        Long id = userService.getCurrentUser().getId();
+        if (error.hasErrors()) {
+//            model.addAttribute("cards", cardService.findUserCards(id, pageable));
+            model.addAttribute("cardName", CardName.values());
+            model.addAttribute("cardForm", new CardForm());
+//            model.addAttribute("activeCards", cardService.findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
+            model.addAttribute("replenishmentForm", new ReplenishmentForm());
+//            Sort sort = pageable.getSort();
+//            model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
+//            model.addAttribute("sort", sort.iterator().next().getProperty());
+            return "cards";
+        }
         log.info("cards Controller replenishmentForm");
         cardService.replenishmentCard(replenishmentForm);
-        Long id = userService.getCurrentUser().getId();
-        return "redirect:/cards/" + id;
+        return "redirect:/cards/" + id + "?sort=id";
 
     }
 
-    @PostMapping(value = "cards")
+    @PostMapping(value = "/cards/new")
     public String addCard(@ModelAttribute("cardForm") CardForm cardForm) {
         log.info("cards Controller");
         cardService.createCard(cardForm);
         Long id = userService.getCurrentUser().getId();
-        return "redirect:/cards/" + id;
+        return "redirect:/cards/" + id + "?sort=id";
 
     }
 
-    @RequestMapping(value ="/cards/blocked", method = RequestMethod.POST)
-    public String blockedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId){
-       cardService.blockedTheCard(cardId);
-        return "redirect:/cards/"+userId;
+    @RequestMapping(value = "/cards/blocked", method = RequestMethod.POST)
+    public String blockedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId) {
+        cardService.blockedTheCard(cardId);
+        return "redirect:/cards/" + userId + "?sort=id";
     }
 
-    @RequestMapping(value ="/pending-cards/activated", method = RequestMethod.POST)
-    public String activatedPendingCard(@RequestParam("cardId") long cardId){
+    @RequestMapping(value = "/pending-cards/activated", method = RequestMethod.POST)
+    public String activatedPendingCard(@RequestParam("cardId") long cardId) {
         cardService.activatedTheCard(cardId);
         return "redirect:/pending-cards/";
     }
 
-    @RequestMapping(value ="/cards/activated", method = RequestMethod.POST)
-    public String activatedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId){
+    @RequestMapping(value = "/cards/activated", method = RequestMethod.POST)
+    public String activatedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId) {
         cardService.activatedTheCard(cardId);
-        return "redirect:/cards/"+userId;
+        return "redirect:/cards/" + userId + "?sort=id";
     }
 
-    @RequestMapping(value ="/cards/pending", method = RequestMethod.POST)
-    public String pendedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId){
+    @RequestMapping(value = "/cards/pending", method = RequestMethod.POST)
+    public String pendedCard(@RequestParam("cardId") long cardId, @RequestParam("userId") long userId) {
         cardService.pendedTheCard(cardId);
-        return "redirect:/cards/"+userId;
+        return "redirect:/cards/" + userId + "?sort=id";
     }
 
 }

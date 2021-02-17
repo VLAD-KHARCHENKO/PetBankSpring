@@ -36,7 +36,7 @@
                                     <div class="col-sm-6">
                                         <form:input  path="lastName" type="text" name="lastName" class="form-control form-control-user" id="exampleLastName"
                                             placeholder="Last Name"/>
-                                        <form:errors path="lastName"/>
+                                        <form:errors path="lastName" class="text-danger"/>
                                     </div>
                                 </div>
                                 <div class="form-group">

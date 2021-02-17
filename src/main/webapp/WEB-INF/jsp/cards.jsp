@@ -182,7 +182,7 @@
 
 
             </div>
-            <form:form class="row g-3" modelAttribute="cardForm" action="cards" method="post">
+            <form:form class="row g-3" modelAttribute="cardForm" action="/cards/new" method="post">
                 <div class="col-auto">
                     <div class="input-group">
                         <span class="input-group-text"><spring:message code="create.new"/></span>
@@ -202,7 +202,8 @@
                 </div>
             </form:form>
 
-            <form:form class="row g-3" modelAttribute="replenishmentForm" action="replenishmentCard" method="post">
+
+            <form:form class="row g-3" modelAttribute="replenishmentForm" action="cards" method="post">
                 <div class="col-auto">
                     <div class="input-group">
                         <span class="input-group-text"><spring:message code="create.new"/></span>
@@ -215,10 +216,13 @@
                             </c:forEach>
                         </form:select>
                         <form:errors path="cardNumber"/>
+
                         <form:input path="amount" class="form-control"
                                     aria-label="Dollar amount (with dot and two decimal places)"/>
                         <span class="input-group-text">$</span>
                         <span class="input-group-text">0.00</span>
+                        <form:errors path="amount"/>
+
                     </div>
                 </div>
                 <div class="col-auto">
