@@ -83,4 +83,14 @@ public class PaymentService {
         return account;
     }
 
+    public boolean debitCardBalance(PaymentForm paymentForm){
+
+     if (getAccountByCardNumber(paymentForm.getDebit()).getBalance() != paymentForm.getAmount()) {
+         return true;
+     }
+
+
+        return true;
+    }
+
 }

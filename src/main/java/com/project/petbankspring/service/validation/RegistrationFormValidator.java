@@ -27,7 +27,7 @@ public class RegistrationFormValidator implements Validator {
             errors.rejectValue("lastName", "lastName");
         }
         if (isLoginNotMatch(form)) {
-            errors.rejectValue("login", "login");
+            errors.rejectValue("login", "loginError");
         }
     }
 

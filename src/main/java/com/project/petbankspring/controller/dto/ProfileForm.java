@@ -15,7 +15,6 @@ public class ProfileForm {
     @NotNull
     private String userId;
     @NotNull
-    @Size(min = 5, max = 60)
     private String firstName;
     @NotNull
     private String lastName;

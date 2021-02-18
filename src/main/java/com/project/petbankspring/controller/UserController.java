@@ -35,11 +35,6 @@ public class UserController {
     public String profile(@Valid @RequestParam(value = "id") Long id, ProfileForm profileForm, BindingResult error, Model model) {
         log.info("Get profile Page");
 
-       if (error.hasErrors()) {
-
-           return "profile";
-       }
-       
         model.addAttribute("profileUser", userService.getUserById(id));
 //        model.addAttribute("currentUser", userService.getCurrentUser());
         log.info("addAttribute currentUser" + userService.getCurrentUser());
