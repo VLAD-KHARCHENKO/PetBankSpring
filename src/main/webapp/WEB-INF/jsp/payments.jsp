@@ -17,6 +17,7 @@
 <body id="page-top">
 
 
+
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -33,6 +34,13 @@
         <!-- Begin Page Content -->
 
         <div class="container-fluid">
+
+            <div class="range range-sm-center"><h5>
+                <c:if test="${not empty notification}">
+                    <c:out value ="${notification}" />
+                </c:if>
+            </h5></div>
+
             <form:form class="row g-3" action="payments" method="post"
                        modelAttribute="paymentForm">
                 <div class="row">

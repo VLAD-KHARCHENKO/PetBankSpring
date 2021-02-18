@@ -27,6 +27,11 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <div class="range range-sm-center"><h5>
+                    <c:if test="${not empty notification}">
+                        <c:out value ="${notification}" />
+                    </c:if>
+                </h5></div>
 
                 <!-- Page Heading -->
                 <h1 class="h3 mb-4 text-gray-800"> <spring:message code="card.small"/>:

@@ -31,5 +31,8 @@ public interface CardRepo extends PagingAndSortingRepository<Card, Long> {
     @Query("select card from Card card where card.condition='PENDING'")
   List  <Card> findAllPendingCards();
 
+    boolean existsByNumber(Long number);
 
+@Query ("select account.id from Card card where card.id=:cardId")
+    long findAccountIdByCardId(long cardId);
 }

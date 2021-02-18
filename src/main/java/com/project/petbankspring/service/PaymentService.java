@@ -1,6 +1,7 @@
 package com.project.petbankspring.service;
 
 import com.project.petbankspring.controller.dto.PaymentForm;
+import com.project.petbankspring.exception.EntityNotFoundException;
 import com.project.petbankspring.model.Account;
 import com.project.petbankspring.model.Card;
 import com.project.petbankspring.model.Payment;
@@ -12,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.method.P;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +40,9 @@ public class PaymentService {
     }
 
     public Payment createPayment(PaymentForm paymentForm) {
+        if(!isDebitCardExist(paymentForm.getDebit())){
+            return null;
+        }
 
         return paymentRepo.save(Payment.builder()
                         .date(LocalDateTime.now())
@@ -46,6 +52,11 @@ public class PaymentService {
                         .amount(paymentForm.getAmount())
                         .status(Status.SAVE)
                         .build());
+
+    }
+
+    private boolean isDebitCardExist(String debit) {
+        return cardRepo.existsByNumber(Long.parseLong(debit));
 
     }
 
@@ -83,14 +94,13 @@ public class PaymentService {
         return account;
     }
 
-    public boolean debitCardBalance(PaymentForm paymentForm){
-
-     if (getAccountByCardNumber(paymentForm.getDebit()).getBalance() != paymentForm.getAmount()) {
-         return true;
-     }
-
-
-        return true;
+    public boolean creditCardBalance(Long id){
+        Payment payment = paymentRepo.findById(id).get();
+        return payment.getCredit().getBalance().compareTo(payment.getAmount()) >= 0;
     }
 
+    public long findAccountIdByCardId(long cardId) {
+        log.info("findAccountIdByCardId");
+        return cardRepo.findAccountIdByCardId(cardId);
+    }
 }

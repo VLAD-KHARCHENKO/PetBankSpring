@@ -28,7 +28,7 @@ public class PaymentController {
 
     private PaymentService paymentService;
     private CardService cardService;
-private UserService userService;
+    private UserService userService;
 
     @GetMapping(value = "/statements/{id}")
     public String statements(@PathVariable("id") Long id, Model model, Pageable pageable) {
@@ -44,8 +44,8 @@ private UserService userService;
         model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
         model.addAttribute("card", cardService.findCardByAccountId(id));
         Sort sort = pageable.getSort();
-        model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending()? ",desc" : "");
-        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending()? ",desc" : "");
+        model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending() ? ",desc" : "");
+        model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
         model.addAttribute("sort", sort.iterator().next().getProperty());
 
         return "statements";
@@ -60,22 +60,27 @@ private UserService userService;
     }
 
     @PostMapping(value = "payments")
-    public String addPayment(@Valid @ModelAttribute("paymentForm") PaymentForm paymentForm, BindingResult error,  Model model) {
+    public String addPayment(@Valid @ModelAttribute("paymentForm") PaymentForm paymentForm, BindingResult error, Model model) {
         User user = userService.getCurrentUser();
-        log.info("User id = "+user.getId());
+        log.info("User id = " + user.getId());
 
         if (error.hasErrors()) {
             model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(user.getId(), CardCondition.ACTIVE));
             return "payments";
         }
 
-       paymentService.createPayment(paymentForm);
+        Payment payment = paymentService.createPayment(paymentForm);
+        if (payment == null) {
 
+            model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(user.getId(), CardCondition.ACTIVE));
+            model.addAttribute("notification", "there no car");
+            return "payments";
+        }
 
         log.info("CREATE PAYMENT");
         Long id = paymentService.getIdByCardNumber(paymentForm.getCredit());
         log.info("CardId=" + id);
-        return "redirect:/statements/" + id+"?page=0&size=3&sort=id";
+        return "redirect:/statements/" + id + "?page=0&size=3&sort=id";
 
     }
 
@@ -86,9 +91,34 @@ private UserService userService;
     }
 
     @RequestMapping(value = "/statements/pay", method = RequestMethod.POST)
-    public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId) {
-        paymentService.submitPayment(paymentId);
+    public String submitPayment(@RequestParam("payId") long paymentId, @RequestParam("cardId") long cardId, Model model, Pageable pageable) {
+
+        long id = paymentService.findAccountIdByCardId(cardId);
+        log.info("account id=" + id);
+        if (!paymentService.creditCardBalance(paymentId)) {
+            log.info("not balance");
+            Page<Payment> statements = paymentService.findPaidPaymentsByAccountId(id, pageable);
+            log.info("page statements ="+statements);
+            log.info("page paidPayments ="+statements.getContent());
+            log.info("page paidPaymentsPages ="+statements.getTotalPages());
+            log.info("page currentPage ="+pageable.getPageNumber());
+            model.addAttribute("paidPayments", statements.getContent());
+            model.addAttribute("paidPaymentsPages", statements.getTotalPages());
+            model.addAttribute("currentPage",pageable.getPageNumber());
+            model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
+            model.addAttribute("card", cardService.findCardByAccountId(id));
+            Sort sort = pageable.getSort();
+//            model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending() ? ",desc" : "");
+//            model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
+//            model.addAttribute("sort", sort.iterator().next().getProperty());
+            model.addAttribute("notification", "not enough money on the card");
+            return "statements";
+        }
+            paymentService.submitPayment(paymentId);
+
         return "redirect:/statements/" + cardId + "?page=0&size=3&sort=id";
+
+
     }
 
 
