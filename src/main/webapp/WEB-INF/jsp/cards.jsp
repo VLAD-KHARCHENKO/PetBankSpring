@@ -147,7 +147,7 @@
                                 </a>
                             </td>
 
-                            <!--  <td>${card.account.user.firstName} ${card.account.user.lastName}</td>-->
+
 
                         </tr>
                         </c:forEach>
@@ -156,31 +156,11 @@
                     </tbody>
                 </table>
 
-                <!--
-                                   <a class="btn btn-light btn-icon-split" href="#" data-toggle="collapse"
-                                      data-target="#collapseUtilities"
-                                      aria-expanded="true" aria-controls="collapseUtilities">
-                                          <span class="icon text-gray-600">
-                                                           <i class="far fa-credit-card"></i>
-                                                       </span>
-                                       <span class="text">Create new card</span>
-                                   </a>
 
-                                   <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                                        data-parent="#accordionSidebar">
-                                       <div class="bg-white py-2 collapse-inner rounded">
-                                           <h6 class="collapse-header">Select card:</h6>
-                                           <c:forEach items="${cardName}" var="value">
-                                               <a class="dropdown-item" href="createCard?cardName=${value}">${value}</a>
-                                           </c:forEach>
-
-                                       </div>
-                                   </div>
-                                   -->
 
                 <div class="mb-4"></div>
 
-
+                <security:authorize access="hasRole('ROLE_CUSTOMER')">
             </div>
             <form:form class="row g-3" modelAttribute="cardForm" action="/cards/new" method="post">
                 <div class="col-auto">
@@ -206,7 +186,7 @@
             <form:form class="row g-3" modelAttribute="replenishmentForm" action="cards" method="post">
                 <div class="col-auto">
                     <div class="input-group">
-                        <span class="input-group-text"><spring:message code="create.new"/></span>
+                        <span class="input-group-text"><spring:message code="top.up.account"/></span>
                         <form:select path="cardNumber" class="form-control">
                             <c:forEach items="${activeCards}" var="activeCard">
                                 <form:option value="${activeCard.number}">${activeCard.cardName} - ${activeCard.number} -
@@ -233,6 +213,7 @@
                 </div>
             </form:form>
         </div>
+    </security:authorize>
     </div>
 </div>
 

@@ -37,10 +37,6 @@ public class PaymentController {
         model.addAttribute("paidPayments", statements.getContent());
         model.addAttribute("paidPaymentsPages", statements.getTotalPages());
         model.addAttribute("currentPage", pageable.getPageNumber());
-
-        //    model.addAttribute("paidPayments", paymentService.findPaidPaymentsByAccountId(id));
-
-
         model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
         model.addAttribute("card", cardService.findCardByAccountId(id));
         Sort sort = pageable.getSort();
@@ -98,13 +94,13 @@ public class PaymentController {
         if (!paymentService.creditCardBalance(paymentId)) {
             log.info("not balance");
             Page<Payment> statements = paymentService.findPaidPaymentsByAccountId(id, pageable);
-            log.info("page statements ="+statements);
-            log.info("page paidPayments ="+statements.getContent());
-            log.info("page paidPaymentsPages ="+statements.getTotalPages());
-            log.info("page currentPage ="+pageable.getPageNumber());
+            log.info("page statements =" + statements);
+            log.info("page paidPayments =" + statements.getContent());
+            log.info("page paidPaymentsPages =" + statements.getTotalPages());
+            log.info("page currentPage =" + pageable.getPageNumber());
             model.addAttribute("paidPayments", statements.getContent());
             model.addAttribute("paidPaymentsPages", statements.getTotalPages());
-            model.addAttribute("currentPage",pageable.getPageNumber());
+            model.addAttribute("currentPage", pageable.getPageNumber());
             model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
             model.addAttribute("card", cardService.findCardByAccountId(id));
             Sort sort = pageable.getSort();
@@ -114,7 +110,7 @@ public class PaymentController {
             model.addAttribute("notification", "not enough money on the card");
             return "statements";
         }
-            paymentService.submitPayment(paymentId);
+        paymentService.submitPayment(paymentId);
 
         return "redirect:/statements/" + cardId + "?page=0&size=3&sort=id";
 
