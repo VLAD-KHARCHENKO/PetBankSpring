@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -16,9 +18,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name = "payment")
 public class Payment extends BaseEntity {
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
+  //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
+
     @NonNull
     @Column(name = "date")
+    @DateTimeFormat(pattern = "MM-dd HH:mm")
     private LocalDateTime date;
     @NonNull
     @OneToOne
@@ -38,4 +43,8 @@ public class Payment extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
+
+    public String getDate() {
+        return date.format(DateTimeFormatter.ofPattern("MM-dd HH:mm"));
+    }
 }

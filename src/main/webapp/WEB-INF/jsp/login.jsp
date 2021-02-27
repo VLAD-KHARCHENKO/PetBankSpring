@@ -48,6 +48,13 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+
+                                    <c:if test="${param.error != null}">
+                                        <p class="text-danger">
+                                            <spring:message code="loginError" />
+                                        </p>
+                                    </c:if>
+
                                     <form:form class="user" action="login" method="post">
                                         <div class="form-group">
                                             <form:input path="username" type="email" name="login" class="form-control form-control-user"
@@ -62,7 +69,7 @@
                                         </div>
 
                                         <c:if test="${not empty notification}">
-                                            <c:out value ="${notification}" />
+                                            <div class ="text-danger"><c:out value ="${notification}" /></div>
                                         </c:if>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>

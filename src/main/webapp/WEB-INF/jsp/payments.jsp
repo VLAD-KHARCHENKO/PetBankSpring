@@ -37,7 +37,7 @@
 
             <div class="range range-sm-center"><h5>
                 <c:if test="${not empty notification}">
-                    <c:out value ="${notification}" />
+                    <div class ="text-danger"><c:out value ="${notification}" /></div>
                 </c:if>
             </h5></div>
 
