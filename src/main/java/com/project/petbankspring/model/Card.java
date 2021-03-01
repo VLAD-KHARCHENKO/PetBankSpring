@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Data
 @Builder
 @Entity
@@ -27,6 +26,5 @@ public class Card extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
-
 
 }

@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Data
 public class LoginForm {
@@ -13,6 +12,5 @@ public class LoginForm {
     private String username;
     @NotNull
     private String password;
-
 
 }

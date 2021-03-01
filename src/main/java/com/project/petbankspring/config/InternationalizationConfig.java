@@ -1,7 +1,6 @@
 package com.project.petbankspring.config;
 
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,6 @@ import java.util.Locale;
 @Slf4j
 @Configuration
 public class InternationalizationConfig implements WebMvcConfigurer {
-
 
     @Bean
     public MessageSource messageSource() {
@@ -42,4 +40,5 @@ public class InternationalizationConfig implements WebMvcConfigurer {
         log.info("local" + interceptor);
 
     }
+
 }

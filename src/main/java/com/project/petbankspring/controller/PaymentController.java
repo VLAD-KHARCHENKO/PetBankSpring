@@ -1,6 +1,5 @@
 package com.project.petbankspring.controller;
 
-
 import com.project.petbankspring.controller.dto.PaymentForm;
 import com.project.petbankspring.model.Payment;
 import com.project.petbankspring.model.User;
@@ -43,7 +42,6 @@ public class PaymentController {
         model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending() ? ",desc" : "");
         model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
         model.addAttribute("sort", sort.iterator().next().getProperty());
-
         return "statements";
     }
 
@@ -67,7 +65,6 @@ public class PaymentController {
 
         Payment payment = paymentService.createPayment(paymentForm);
         if (payment == null) {
-
             model.addAttribute("cards", cardService.findAllByUserIdAndCardCondition(user.getId(), CardCondition.ACTIVE));
             model.addAttribute("notification", "there no car");
             return "payments";
@@ -77,7 +74,6 @@ public class PaymentController {
         Long id = paymentService.getIdByCardNumber(paymentForm.getCredit());
         log.info("CardId=" + id);
         return "redirect:/statements/" + id + "?page=0&size=3&sort=id";
-
     }
 
     @RequestMapping(value = "/statements/remove", method = RequestMethod.POST)
@@ -103,19 +99,11 @@ public class PaymentController {
             model.addAttribute("currentPage", pageable.getPageNumber());
             model.addAttribute("savedPayments", paymentService.findSavePaymentsByAccountId(id));
             model.addAttribute("card", cardService.findCardByAccountId(id));
-            Sort sort = pageable.getSort();
-//            model.addAttribute("currentDirection", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isDescending() ? ",desc" : "");
-//            model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
-//            model.addAttribute("sort", sort.iterator().next().getProperty());
             model.addAttribute("notification", "not enough money on the card");
             return "statements";
         }
         paymentService.submitPayment(paymentId);
-
         return "redirect:/statements/" + cardId + "?page=0&size=3&sort=id";
-
-
     }
-
 
 }

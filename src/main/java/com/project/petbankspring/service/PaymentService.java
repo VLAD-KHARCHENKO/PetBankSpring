@@ -6,15 +6,12 @@ import com.project.petbankspring.model.Account;
 import com.project.petbankspring.model.Card;
 import com.project.petbankspring.model.Payment;
 import com.project.petbankspring.model.enums.Status;
-import com.project.petbankspring.repository.AccountRepo;
 import com.project.petbankspring.repository.CardRepo;
 import com.project.petbankspring.repository.PaymentRepo;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.method.P;
-import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,13 +20,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class PaymentService {
 
-    private PaymentRepo paymentRepo;
-    private AccountRepo accountRepo;
-    private CardRepo cardRepo;
+    private final PaymentRepo paymentRepo;
+    private final CardRepo cardRepo;
 
     public Page<Payment> findPaidPaymentsByAccountId(long id, Pageable pageable) {
         return paymentRepo.findAllPaidByAccountId(id, pageable);
@@ -40,36 +36,33 @@ public class PaymentService {
     }
 
     public Payment createPayment(PaymentForm paymentForm) {
-        if(!isDebitCardExist(paymentForm.getDebit())){
+        if (!isDebitCardExist(paymentForm.getDebit())) {
             return null;
         }
 
         return paymentRepo.save(Payment.builder()
-                        .date(LocalDateTime.now())
-                        .debit(getAccountByCardNumber(paymentForm.getDebit()))
-                        .credit(getAccountByCardNumber(paymentForm.getCredit()))
-                        .description(paymentForm.getDescription())
-                        .amount(paymentForm.getAmount())
-                        .status(Status.SAVE)
-                        .build());
-
+                .date(LocalDateTime.now())
+                .debit(getAccountByCardNumber(paymentForm.getDebit()))
+                .credit(getAccountByCardNumber(paymentForm.getCredit()))
+                .description(paymentForm.getDescription())
+                .amount(paymentForm.getAmount())
+                .status(Status.SAVE)
+                .build());
     }
 
     private boolean isDebitCardExist(String debit) {
         return cardRepo.existsByNumber(Long.parseLong(debit));
-
     }
 
-
     public Long getIdByCardNumber(String number) {
-        Long cardNumber = Long.parseLong(number);
-        Card card = cardRepo.findByNumber(cardNumber);
+        long cardNumber = Long.parseLong(number);
+        Card card = cardRepo.findByNumber(cardNumber).orElseThrow(() -> new EntityNotFoundException("Payment not found"));
         return card.getId();
     }
 
     public Account getAccountByCardNumber(String number) {
-        Long cardNumber = Long.parseLong(number);
-        Card card = cardRepo.findByNumber(cardNumber);
+        long cardNumber = Long.parseLong(number);
+        Card card = cardRepo.findByNumber(cardNumber).orElseThrow(() -> new EntityNotFoundException("Payment not found"));
         return card.getAccount();
     }
 
@@ -79,7 +72,7 @@ public class PaymentService {
 
     @Transactional
     public void submitPayment(long paymentId) {
-        Payment payment = paymentRepo.findById(paymentId).get();
+        Payment payment = paymentRepo.findById(paymentId).orElseThrow(() -> new EntityNotFoundException("Payment not found"));
         payment.setCredit(changeBalance(payment.getCredit(), payment.getAmount().negate()));
         payment.setDebit(changeBalance(payment.getDebit(), payment.getAmount()));
         payment.setDate(LocalDateTime.now());
@@ -94,8 +87,8 @@ public class PaymentService {
         return account;
     }
 
-    public boolean creditCardBalance(Long id){
-        Payment payment = paymentRepo.findById(id).get();
+    public boolean creditCardBalance(Long id) {
+        Payment payment = paymentRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Payment not found"));
         return payment.getCredit().getBalance().compareTo(payment.getAmount()) >= 0;
     }
 
@@ -103,4 +96,5 @@ public class PaymentService {
         log.info("findAccountIdByCardId");
         return cardRepo.findAccountIdByCardId(cardId);
     }
+
 }

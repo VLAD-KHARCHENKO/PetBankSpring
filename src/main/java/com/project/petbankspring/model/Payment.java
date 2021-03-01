@@ -6,9 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
@@ -18,8 +16,6 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Table(name = "payment")
 public class Payment extends BaseEntity {
-
-  //  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
 
     @NonNull
     @Column(name = "date")
@@ -43,8 +39,8 @@ public class Payment extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-
     public String getDate() {
         return date.format(DateTimeFormatter.ofPattern("MM-dd HH:mm"));
     }
+
 }

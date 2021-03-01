@@ -17,4 +17,5 @@ public @interface PasswordMatcher {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

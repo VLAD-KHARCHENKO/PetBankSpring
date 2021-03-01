@@ -2,39 +2,38 @@ package com.project.petbankspring.service;
 
 import com.project.petbankspring.controller.dto.CardForm;
 import com.project.petbankspring.controller.dto.ReplenishmentForm;
+import com.project.petbankspring.exception.EntityNotFoundException;
 import com.project.petbankspring.model.Account;
 import com.project.petbankspring.model.Card;
 import com.project.petbankspring.model.User;
 import com.project.petbankspring.model.enums.CardCondition;
 import com.project.petbankspring.repository.AccountRepo;
 import com.project.petbankspring.repository.CardRepo;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CardService {
 
-
-    private CardRepo cardRepo;
-    private AccountRepo accountRepo;
-    private UserService userService;
-    private PaymentService paymentService;
+    private final CardRepo cardRepo;
+    private final AccountRepo accountRepo;
+    private final UserService userService;
+    private final PaymentService paymentService;
 
     public List<Card> findUserCards(long id, Pageable pageable) {
-        return cardRepo.findAllByUserId(userService.getUserById(id).getId(),pageable);
-    }
-    public List<Card> findAllByUserIdAndCardCondition(long id,CardCondition cardCondition) {
-        return cardRepo.findAllByUserIdAndCardCondition(id, cardCondition);
+        return cardRepo.findAllByUserId(userService.getUserById(id).getId(), pageable);
     }
 
+    public List<Card> findAllByUserIdAndCardCondition(long id, CardCondition cardCondition) {
+        return cardRepo.findAllByUserIdAndCardCondition(id, cardCondition);
+    }
 
     public Card createCard(CardForm cardForm) {
         log.info("Create card");
@@ -45,9 +44,9 @@ public class CardService {
                 .condition(CardCondition.ACTIVE)
                 .account(createAccount(userService.getCurrentUser(), cardNumber))
                 .build());
-
     }
-    public List<Card> findAllPendingCards(){
+
+    public List<Card> findAllPendingCards() {
         log.info("Pending-cards");
         return cardRepo.findAllPendingCards();
     }
@@ -66,32 +65,34 @@ public class CardService {
         return ++newNumber;
     }
 
-    public void blockedTheCard(long cardId){
-        Card card =  cardRepo.findById(cardId).get();
+    public Card blockedTheCard(long cardId) {
+        Card card = cardRepo.findById(cardId).orElseThrow(() -> new EntityNotFoundException("Card not found"));
         card.setCondition(CardCondition.BLOCKED);
-        cardRepo.save(card);
+        return cardRepo.save(card);
     }
 
-    public void activatedTheCard(long cardId){
-        Card card =  cardRepo.findById(cardId).get();
+    public Card activatedTheCard(long cardId) {
+        Card card = cardRepo.findById(cardId).orElseThrow(() -> new EntityNotFoundException("Card not found"));
         card.setCondition(CardCondition.ACTIVE);
-        cardRepo.save(card);
+      return   cardRepo.save(card);
     }
 
-    public void pendedTheCard(long cardId){
-        Card card =  cardRepo.findById(cardId).get();
+    public Card pendedTheCard(long cardId) {
+        Card card = cardRepo.findById(cardId).orElseThrow(() -> new EntityNotFoundException("Card not found"));
         card.setCondition(CardCondition.PENDING);
-        cardRepo.save(card);
+      return cardRepo.save(card);
     }
 
     public Card findCardByAccountId(Long id) {
         return cardRepo.findByAccountId(id);
     }
 
-    public void replenishmentCard(ReplenishmentForm replenishmentForm) {
-        Card card=cardRepo.findByNumber(replenishmentForm.getCardNumber());
-        Account account=paymentService.changeBalance(card.getAccount(),replenishmentForm.getAmount());
+    public Card replenishmentCard(ReplenishmentForm replenishmentForm) {
+        Card card = cardRepo.findByNumber(replenishmentForm.getCardNumber()).orElseThrow(() -> new EntityNotFoundException("Card not found"));
+        Account account = paymentService.changeBalance(card.getAccount(), replenishmentForm.getAmount());
         card.setAccount(account);
-        cardRepo.save(card);
+      return cardRepo.save(card);
     }
+
 }
+

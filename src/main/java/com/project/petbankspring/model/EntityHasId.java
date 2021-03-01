@@ -6,4 +6,5 @@ public interface EntityHasId {
     void setId(Long id);
 
     boolean isNew();
+
 }

@@ -1,6 +1,5 @@
 package com.project.petbankspring.model;
 
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -19,8 +18,6 @@ public class BaseEntity implements EntityHasId {
     protected BaseEntity(Long id) {
         this.id = id;
     }
-
-
 
     @Override
     public Long getId() {
@@ -56,4 +53,5 @@ public class BaseEntity implements EntityHasId {
                 "id=" + id +
                 '}';
     }
+
 }

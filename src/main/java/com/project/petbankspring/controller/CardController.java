@@ -1,6 +1,5 @@
 package com.project.petbankspring.controller;
 
-
 import com.project.petbankspring.controller.dto.CardForm;
 import com.project.petbankspring.controller.dto.ReplenishmentForm;
 import com.project.petbankspring.model.enums.CardCondition;
@@ -25,7 +24,6 @@ public class CardController {
     private CardService cardService;
     private UserService userService;
 
-
     @GetMapping(value = "cards/{id}")
     public String cards(@PathVariable("id") Long id, Model model, Pageable pageable) {
         log.info("cards Controller");
@@ -38,39 +36,25 @@ public class CardController {
         model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
         model.addAttribute("sort", sort.iterator().next().getProperty());
         return "cards";
-
     }
-
 
     @GetMapping(value = "pending-cards")
     public String pendingCards(Model model) {
         log.info("payment-cards Controller");
-
         model.addAttribute("pendingCards", cardService.findAllPendingCards());
-
         return "pending-cards";
-
     }
 
     @PostMapping(value = "cards")
     public String replenishmentCard(@ModelAttribute("replenishmentForm") ReplenishmentForm replenishmentForm,
-                                    Model model, Pageable pageable) {
+                                    Model model) {
         Long id = userService.getCurrentUser().getId();
-
-//            model.addAttribute("cards", cardService.findUserCards(id, pageable));
         model.addAttribute("cardName", CardName.values());
         model.addAttribute("cardForm", new CardForm());
-//            model.addAttribute("activeCards", cardService.findAllByUserIdAndCardCondition(id, CardCondition.ACTIVE));
         model.addAttribute("replenishmentForm", new ReplenishmentForm());
-//            Sort sort = pageable.getSort();
-//            model.addAttribute("direction", Objects.requireNonNull(sort.getOrderFor(sort.iterator().next().getProperty())).isAscending() ? ",desc" : "");
-//            model.addAttribute("sort", sort.iterator().next().getProperty());
-
-
         log.info("cards Controller replenishmentForm");
         cardService.replenishmentCard(replenishmentForm);
         return "redirect:/cards/" + id + "?sort=id";
-
     }
 
     @PostMapping(value = "/cards/new")
@@ -79,7 +63,6 @@ public class CardController {
         cardService.createCard(cardForm);
         Long id = userService.getCurrentUser().getId();
         return "redirect:/cards/" + id + "?sort=id";
-
     }
 
     @RequestMapping(value = "/cards/blocked", method = RequestMethod.POST)

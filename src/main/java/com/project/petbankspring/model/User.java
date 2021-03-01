@@ -1,12 +1,12 @@
 package com.project.petbankspring.model;
 
 import com.project.petbankspring.model.enums.Role;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
-import lombok.*;
 
 @Data
 @Entity
@@ -31,6 +31,5 @@ public class User extends BaseEntity {
     private boolean condition;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-
 
 }

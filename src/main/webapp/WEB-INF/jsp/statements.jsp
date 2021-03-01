@@ -91,6 +91,7 @@
                                             <td>${savedPayment.description}</td>
 
                                             <td>
+                                                <security:authorize access="hasRole('ROLE_CUSTOMER')">
                                                 <c:choose>
                                                 <c:when test="${ card.condition == 'ACTIVE'}">
                                                 <div class="d-grid gap-2 col-10 mx-auto">
@@ -110,9 +111,10 @@
 
                                                     </c:otherwise>
                                                 </c:choose>
-
+                                                </security:authorize>
                                             </td>
                                             <td>
+                                                <security:authorize access="hasRole('ROLE_CUSTOMER')">
                                                 <div class="d-grid gap-2 col-10 mx-auto ">
                                                     <c:url var="deleteUrl" value="/statements/remove"/>
                                                     <form id="${paymentFormId}" action="${deleteUrl}" method="post">
@@ -126,7 +128,7 @@
                                                     </form>
 
                                                 </div>
-
+                                            </security:authorize>
                                             </td>
 
 

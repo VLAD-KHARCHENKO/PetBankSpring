@@ -17,9 +17,6 @@ import javax.servlet.http.HttpSession;
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepo userRepo;
     private final HttpSession session;
-    private final UserService userService;
-
-
 
     /**
      * Finds User in the DB by Login and loads User in the session
@@ -36,9 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null || !user.isCondition()) {
             throw new UsernameNotFoundException("User not found or blocked! Username : " + login);
         }
-
-
         session.setAttribute("user", user);
         return new CustomUserDetails(user);
     }
+
 }

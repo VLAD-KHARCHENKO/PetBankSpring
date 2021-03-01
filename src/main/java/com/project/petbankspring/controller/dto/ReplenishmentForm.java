@@ -11,4 +11,5 @@ public class ReplenishmentForm {
     private long cardNumber;
     @NotNull
     private BigDecimal amount;
+
 }

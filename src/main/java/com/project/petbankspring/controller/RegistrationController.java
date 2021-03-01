@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @Slf4j
 @Controller
 @RequestMapping(value = "/registration")
@@ -37,7 +38,6 @@ public class RegistrationController {
     @GetMapping
     public String getRegistrationPage(Model model) {
         log.info("Get Registration Page");
-
         model.addAttribute("registrationForm", new RegistrationForm());
         return "registration";
     }
@@ -46,7 +46,6 @@ public class RegistrationController {
     public String registerUser(@Valid @ModelAttribute("registrationForm") RegistrationForm registrationForm, BindingResult error) {
         log.info("Form {}", registrationForm);
         if (error.hasErrors()) {
-
             return "registration";
         }
 
@@ -57,8 +56,8 @@ public class RegistrationController {
             error.rejectValue("login", "registration.login.exist");
             return "registration";
         }
-
         securityService.autoLogin(registrationForm.getLogin(), registrationForm.getPassword());
         return "redirect:/";
     }
+
 }

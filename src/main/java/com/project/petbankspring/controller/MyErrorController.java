@@ -41,4 +41,5 @@ public class MyErrorController implements org.springframework.boot.web.servlet.e
     public String construction() {
         return "under-construction";
     }
+
 }
