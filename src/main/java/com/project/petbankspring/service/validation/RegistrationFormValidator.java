@@ -26,8 +26,8 @@ public class RegistrationFormValidator implements Validator {
         if (isLastNameNotMatch(form)) {
             errors.rejectValue("lastName", "lastName");
         }
-        if (isLoginNotMatch(form)) {
-            errors.rejectValue("login", "loginError");
+        if (!isLoginNotMatch(form)) {
+          errors.rejectValue("login", "loginError");
         }
     }
 
@@ -41,12 +41,12 @@ public class RegistrationFormValidator implements Validator {
 
     private boolean isFirstNameNotMatch(RegistrationForm form) {
         int lengthName = form.getFirstName().length();
-        return !(lengthName > 3 && lengthName < 30);
+        return !(lengthName > 2 && lengthName < 30);
     }
 
     private boolean isLastNameNotMatch(RegistrationForm form) {
         int lengthName = form.getLastName().length();
-        return !(lengthName > 3 && lengthName < 30);
+        return !(lengthName > 2 && lengthName < 30);
     }
 
 }

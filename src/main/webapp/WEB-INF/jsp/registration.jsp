@@ -42,13 +42,13 @@
                                 <div class="form-group">
                                     <form:input  path="login" type="email" name="login" class="form-control form-control-user" id="exampleInputEmail"
                                         placeholder="Email Address"/>
-                                    <form:errors path="login"/>
+                                    <form:errors path="login" class="text-danger"/>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <form:input path="password" type="password" name="password" class="form-control form-control-user"
                                             id="exampleInputPassword" placeholder="Password"/>
-                                        <form:errors path="password"/>
+                                        <form:errors path="password" class="text-danger"/>
                                     </div>
                                     <div class="col-sm-6">
                                         <form:input path="password_confirm" type="password" name="password" class="form-control form-control-user"
